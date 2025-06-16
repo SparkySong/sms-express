@@ -1,0 +1,79 @@
+<view class="login-container">
+  <!-- 登录方式切换 - 改为标题 -->
+  <view class="login-title">
+    账号登录
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-message" wx:if="{{errorMessage}}">
+    <van-icon name="warning-o" color="#ff4d4f" />
+    <text>{{errorMessage}}</text>
+  </view>
+
+  <!-- 账号密码登录表单 -->
+  <view class="login-form">
+    <view class="form-item">
+      <van-icon name="user-o" size="20px" class="input-icon" />
+      <input 
+        class="input-field" 
+        placeholder="请输入用户名" 
+        value="{{username}}" 
+        bindinput="onUsernameInput"
+      />
+    </view>
+
+    <view class="form-item">
+      <van-icon name="lock" size="20px" class="input-icon" />
+      <input 
+        class="input-field" 
+        placeholder="请输入密码" 
+        password="{{!showPassword}}" 
+        value="{{password}}" 
+        bindinput="onPasswordInput"
+      />
+      <view class="eye-icon" bindtap="togglePasswordVisibility">
+        <van-icon name="{{showPassword ? 'eye-o' : 'closed-eye'}}" size="20px" />
+      </view>
+    </view>
+
+    <view class="form-tips">
+      <text>默认账号: admin</text>
+      <text>默认密码: 123456</text>
+    </view>
+
+    <button 
+      class="login-button account-login-btn" 
+      bindtap="accountLogin" 
+      loading="{{loading}}"
+      disabled="{{loading}}"
+    >
+      登录
+    </button>
+    
+    <!-- 注册入口 -->
+    <view class="register-entry">
+      <text>没有账号？</text>
+      <text class="register-link" bindtap="goToRegister">立即注册</text>
+    </view>
+    
+    <!-- 添加微信登录按钮 -->
+    <view class="divider-text">
+      <text>或</text>
+    </view>
+    
+    <button 
+      class="login-button wechat-direct-btn" 
+      bindtap="wechatLogin" 
+      loading="{{loading}}"
+      disabled="{{loading}}"
+    >
+      <van-icon name="wechat" size="20px" class="wechat-icon" />
+      微信一键登录
+    </button>
+    
+    <!-- 隐私政策说明 -->
+    <view class="privacy-policy">
+      登录即代表您同意<text class="link">用户协议</text>和<text class="link">隐私政策</text>
+    </view>
+  </view>
+</view> 

@@ -1,0 +1,92 @@
+<!--pages/history/history.wxml-->
+<view class="container">
+  <!-- 头部操作区 -->
+  <view class="header">
+    <view class="title">阅读历史</view>
+    <view class="actions">
+      <van-button wx:if="{{!editMode && historyList.length > 0}}" custom-class="action-btn" type="default" size="small" bindtap="toggleEditMode">管理</van-button>
+      <van-button wx:if="{{editMode}}" custom-class="action-btn" type="default" size="small" bindtap="selectAll">{{isAllSelected ? '取消全选' : '全选'}}</van-button>
+      <van-button wx:if="{{editMode}}" custom-class="action-btn delete-btn" type="danger" size="small" disabled="{{selectedItems.length === 0}}" bindtap="deleteSelected">删除({{selectedItems.length}})</van-button>
+      <van-button wx:if="{{editMode}}" custom-class="action-btn" type="default" size="small" bindtap="toggleEditMode">完成</van-button>
+    </view>
+  </view>
+
+  <!-- 未登录提示 -->
+  <view wx:if="{{!isUserLoggedIn}}" class="empty-container">
+    <van-empty 
+      description="请先登录后查看阅读历史" 
+      image="https://img.yzcdn.cn/vant/empty-image-default.png"
+    >
+      <van-button round type="primary" custom-class="go-read-btn" bind:click="goToLogin">去登录</van-button>
+    </van-empty>
+  </view>
+
+  <!-- 历史记录为空 -->
+  <view wx:elif="{{historyList.length === 0}}" class="empty-container">
+    <van-empty 
+      description="暂无阅读历史" 
+      image="https://img.yzcdn.cn/vant/empty-image-default.png"
+    >
+      <van-button round type="primary" custom-class="go-read-btn" bind:click="goToIndex">去阅读</van-button>
+    </van-empty>
+  </view>
+
+  <!-- 阅读历史列表 -->
+  <view wx:else class="history-list">
+    <!-- 日期分组 -->
+    <block wx:for="{{groupedHistoryList}}" wx:key="date" wx:for-item="group">
+      <view class="date-group">
+        <van-divider contentPosition="left" customStyle="margin: 0; font-size: 14px; color: #969799;">{{group.date}}</van-divider>
+        
+        <!-- 该日期的历史记录 -->
+        <view class="history-items">
+          <van-swipe-cell 
+            wx:for="{{group.items}}" 
+            wx:key="id" 
+            right-width="{{ 65 }}"
+            disabled="{{editMode}}"
+            bind:click="onSwipeCellClick"
+            data-id="{{item.id}}"
+          >
+            <view class="history-item {{ editMode ? 'edit-mode' : '' }}" bindtap="{{editMode ? '' : 'viewNews'}}" data-id="{{item.articleId}}">
+              <!-- 选择框 -->
+              <view wx:if="{{editMode}}" class="checkbox {{selectedItems.includes(item.id) ? 'checked' : ''}}" catchtap="toggleSelect" data-id="{{item.id}}">
+                <van-icon wx:if="{{selectedItems.includes(item.id)}}" name="success" color="#1989fa" size="14px" />
+              </view>
+              
+              <!-- 内容区 -->
+              <view class="item-content {{ editMode ? 'with-checkbox' : '' }}">
+                <image class="item-image" src="{{item.imageUrl || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'}}" mode="aspectFill" lazy-load></image>
+                <view class="item-info">
+                  <view class="item-title">{{item.title}}</view>
+                  <view class="item-meta">
+                    <text class="item-source">{{item.source}}</text>
+                    <text class="item-dot">·</text>
+                    <text class="item-time">{{item.readTime}}</text>
+                    <van-tag wx:if="{{item.category}}" type="primary" plain size="mini" custom-class="category-tag">{{item.category}}</van-tag>
+                  </view>
+                </view>
+              </view>
+            </view>
+            
+            <!-- 滑动出现的删除按钮 -->
+            <view slot="right" class="delete-btn" catchtap="deleteItem" data-id="{{item.id}}">删除</view>
+          </van-swipe-cell>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 底部加载状态 -->
+  <view class="loading-more" wx:if="{{loading && historyList.length > 0}}">
+    <van-loading size="24px" color="#1989fa">加载中...</van-loading>
+  </view>
+
+  <!-- 已经到底了 -->
+  <view class="bottom-info" wx:if="{{historyList.length > 0 && !loading && !hasMore}}">
+    <text>— 我也是有底线的 —</text>
+  </view>
+</view>
+
+<!-- 确认删除对话框 -->
+<van-dialog id="van-dialog" /> 

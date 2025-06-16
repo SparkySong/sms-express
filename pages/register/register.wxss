@@ -1,0 +1,132 @@
+/* 整体容器 */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* 状态栏 */
+.status-bar {
+  width: 100%;
+}
+
+/* 头部 */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0;
+  position: relative;
+}
+
+.back-icon {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+}
+
+.page-title {
+  flex: 1;
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+/* 错误信息 */
+.error-message {
+  display: flex;
+  align-items: center;
+  background-color: #fff2f0;
+  color: #ff4d4f;
+  padding: 16rpx 24rpx;
+  border-radius: 8rpx;
+  margin-bottom: 30rpx;
+  font-size: 28rpx;
+}
+
+.error-message van-icon {
+  margin-right: 10rpx;
+}
+
+/* 注册表单 */
+.register-form {
+  margin-top: 30rpx;
+}
+
+.form-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 96rpx;
+  border-bottom: 1rpx solid #eeeeee;
+  margin-bottom: 30rpx;
+  background-color: #ffffff;
+}
+
+.input-icon {
+  margin-right: 20rpx;
+  color: #888888;
+}
+
+.input-field {
+  flex: 1;
+  height: 100%;
+  font-size: 32rpx;
+  color: #333333;
+}
+
+.eye-icon {
+  padding: 20rpx;
+  color: #888888;
+}
+
+/* 注册按钮 */
+.register-button {
+  margin-top: 60rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 32rpx;
+  color: #ffffff;
+  background-color: #1989fa;
+  border-radius: 44rpx;
+  border: none;
+}
+
+.register-button:active {
+  opacity: 0.8;
+}
+
+/* 禁用状态 */
+.register-button[disabled] {
+  background-color: #cccccc;
+  color: #ffffff;
+}
+
+/* 登录入口 */
+.login-entry {
+  display: flex;
+  justify-content: center;
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.login-link {
+  color: #1989fa;
+  margin-left: 10rpx;
+}
+
+/* 隐私政策 */
+.privacy-policy {
+  font-size: 24rpx;
+  color: #999999;
+  text-align: center;
+  margin-top: 60rpx;
+}
+
+.link {
+  color: #1989fa;
+} 

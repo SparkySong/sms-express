@@ -1,0 +1,139 @@
+<!--pages/help/help.wxml-->
+<view class="container">
+  <!-- 顶部标签切换 -->
+  <view class="tabs">
+    <view 
+      class="tab {{activeTab === 'faq' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="faq">
+      常见问题
+    </view>
+    <view 
+      class="tab {{activeTab === 'feedback' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="feedback">
+      意见反馈
+    </view>
+  </view>
+  
+  <!-- 常见问题页面 -->
+  <view class="tab-content" wx:if="{{activeTab === 'faq'}}">
+    <van-collapse value="{{ activeNames }}" bind:change="onCollapseChange">
+      <van-collapse-item title="如何收藏新闻?" name="1">
+        <view class="faq-content">
+          在新闻详情页面右上角点击"收藏"图标即可将文章加入收藏列表。您可以在"收藏"标签页查看所有已收藏的内容。
+        </view>
+      </van-collapse-item>
+      
+      <van-collapse-item title="如何调整字体大小?" name="2">
+        <view class="faq-content">
+          您可以在"我的"页面中点击"系统设置"，在设置页面中找到"字体大小"选项并调整到您喜欢的大小。
+        </view>
+      </van-collapse-item>
+      
+      <van-collapse-item title="如何清除阅读历史?" name="3">
+        <view class="faq-content">
+          您可以在"我的"页面中点击"阅读历史"，在历史记录页面中点击右上角的"管理"按钮，然后选择"全选"并删除。
+          <view class="sub-info">或者也可以在"系统设置"中选择"清除缓存"来清除所有历史记录。</view>
+        </view>
+      </van-collapse-item>
+      
+      <van-collapse-item title="如何关闭消息通知?" name="4">
+        <view class="faq-content">
+          您可以在"我的"页面中点击"系统设置"，然后关闭"推送通知"开关即可。
+        </view>
+      </van-collapse-item>
+      
+      <van-collapse-item title="如何联系客服?" name="5">
+        <view class="faq-content">
+          您可以通过以下方式联系我们：
+          <view class="contact-item">
+            <text class="label">电子邮件：</text>
+            <text class="value" bindtap="copyText" data-text="support@simplenews.com">support@simplenews.com</text>
+          </view>
+          <view class="contact-item">
+            <text class="label">客服电话：</text>
+            <text class="value" bindtap="copyText" data-text="400-123-4567">400-123-4567</text>
+          </view>
+        </view>
+      </van-collapse-item>
+    </van-collapse>
+    
+    <!-- 联系我们入口 -->
+    <view class="contact-us">
+      <view class="contact-title">没有找到需要的帮助?</view>
+      <view class="feedback-btn" bindtap="switchToFeedback">提交反馈意见</view>
+    </view>
+  </view>
+  
+  <!-- 意见反馈页面 -->
+  <view class="tab-content" wx:if="{{activeTab === 'feedback'}}">
+    <view class="feedback-form">
+      <van-cell-group>
+        <van-field
+          value="{{ feedback.type }}"
+          required
+          readonly
+          label="反馈类型"
+          placeholder="请选择反馈类型"
+          is-link
+          bindtap="showTypePopup"
+        />
+        
+        <van-field
+          value="{{ feedback.content }}"
+          label="反馈内容"
+          type="textarea"
+          placeholder="请详细描述您遇到的问题或建议"
+          autosize="{{ {minHeight: 100, maxHeight: 200} }}"
+          required
+          border="{{ true }}"
+          bind:change="onContentChange"
+        />
+        
+        <van-field
+          value="{{ feedback.contact }}"
+          label="联系方式"
+          placeholder="手机号/微信/邮箱（选填）"
+          border="{{ true }}"
+          bind:change="onContactChange"
+        />
+      </van-cell-group>
+      
+      <!-- 提交按钮 -->
+      <view class="submit-btn-wrap">
+        <van-button 
+          type="primary" 
+          color="#1989fa" 
+          block 
+          round 
+          custom-class="submit-btn"
+          disabled="{{!feedback.type || !feedback.content}}"
+          bind:click="submitFeedback">
+          提交反馈
+        </van-button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 反馈类型弹出菜单 -->
+<view class="type-popup" wx:if="{{showTypeOptions}}">
+  <view class="type-popup-mask" bindtap="hideTypePopup"></view>
+  <view class="type-popup-content">
+    <view class="type-popup-title">选择反馈类型</view>
+    <view class="type-options">
+      <view 
+        class="type-option" 
+        wx:for="{{feedbackTypes}}" 
+        wx:key="id"
+        data-type="{{item.name}}"
+        bindtap="selectFeedbackType">
+        {{item.name}}
+      </view>
+    </view>
+    <view class="type-popup-close" bindtap="hideTypePopup">取消</view>
+  </view>
+</view>
+
+<van-toast id="van-toast" /> 

@@ -1,0 +1,89 @@
+<!--pages/category/list/list.wxml-->
+<view class="container">
+  <!-- 顶部搜索区域 -->
+  <van-sticky>
+    <view class="header-section">
+      <!-- 搜索区域 -->
+      <view class="search-section">
+        <van-search 
+          value="{{ searchValue }}" 
+          placeholder="在{{categoryName}}分类中搜索" 
+          background="#fff"
+          shape="round"
+          bind:change="onSearchChange"
+          bind:search="onSearch"
+          custom-class="search-bar"
+          show-action="{{searchValue.length > 0}}"
+          action-text="搜索"
+          bind:cancel="onSearch"
+          focus="{{false}}"
+        />
+      </view>
+      <!-- 当前搜索条件显示 -->
+      <view class="search-status" wx:if="{{keyword}}">
+        <text class="search-keyword">搜索：{{keyword}}</text>
+        <van-icon name="cross" class="clear-search" bind:tap="onSearch" />
+      </view>
+    </view>
+  </van-sticky>
+  
+  <!-- 文章列表区域 -->
+  <view class="article-list-section">
+    <!-- 加载中状态 -->
+    <view wx:if="{{ isLoading && !articles.length }}" class="loading-placeholder">
+      <van-skeleton title row="3" />
+      <van-skeleton title row="3" />
+    </view>
+    
+    <!-- 空状态 -->
+    <view wx:elif="{{ !articles.length }}" class="empty-placeholder">
+      <van-empty 
+        description="{{keyword ? '没有找到相关文章' : '暂无相关文章'}}" 
+        image="https://img.yzcdn.cn/vant/empty-image-default.png"
+      />
+    </view>
+    
+    <!-- 文章列表 - 优化样式 -->
+    <view wx:else class="article-list">
+      <view 
+        class="article-item" 
+        wx:for="{{ articles }}" 
+        wx:key="id"
+        bind:tap="onArticleTap"
+        data-id="{{ item.id }}"
+        hover-class="article-item-hover"
+      >
+        <view class="standard-layout">
+          <view class="article-content">
+            <view class="article-title">{{ item.title }}</view>
+            <view class="article-abstract">{{ item.abstract || '暂无摘要' }}</view>
+            <view class="article-meta">
+              <view class="source">{{ item.source || '未知来源' }}</view>
+              <text class="dot">·</text>
+              <view class="time">{{ item.publishTime }}</view>
+              <text class="dot">·</text>
+              <view class="view-count">
+                <van-icon name="eye-o" size="12px" style="margin-right: 2px;"/> 
+                {{ item.view_count || 0 }}
+              </view>
+            </view>
+          </view>
+          <image 
+            class="article-image" 
+            src="{{ item.coverUrl || item.cover_url || 'https://img.yzcdn.cn/vant/cat.jpeg' }}" 
+            mode="aspectFill"
+            lazy-load
+            binderror="onImageError"
+            data-index="{{index}}"
+          ></image>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 底部加载状态 -->
+    <view class="loading-status">
+      <van-loading size="24px" color="#1989fa" wx:if="{{ isLoading && articles.length > 0 }}">加载中...</van-loading>
+      <text wx:elif="{{ loadAll && articles.length > 0 }}" class="no-more">- 已经到底啦 -</text>
+    </view>
+  </view>
+</view> 

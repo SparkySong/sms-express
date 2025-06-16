@@ -1,0 +1,104 @@
+<!-- pages/profile-edit/profile-edit.wxml -->
+<view class="container">
+
+  <!-- 加载中提示 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <van-loading color="#3b82f6" size="36px"></van-loading>
+    <view style="margin-top: 30rpx; color: #999;">加载中...</view>
+  </view>
+
+  <!-- 编辑表单 -->
+  <block wx:if="{{!loading}}">
+    <view class="edit-form">
+      <!-- 头像选择 -->
+      <view class="form-item avatar-item" bindtap="chooseAvatar">
+        <view class="item-label">头像</view>
+        <view class="avatar-wrapper">
+          <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+          <view class="change-avatar">
+            <van-icon name="photograph" size="20px" />
+          </view>
+          
+          <!-- 上传进度指示器 -->
+          <view class="upload-progress-mask" wx:if="{{uploadingAvatar}}">
+            <view class="progress-text">{{uploadProgress}}%</view>
+            <view class="progress-bar-bg">
+              <view class="progress-bar" style="width: {{uploadProgress}}%;"></view>
+            </view>
+          </view>
+        </view>
+        <view style="flex:1"></view>
+        <van-icon name="arrow" class="item-arrow" />
+      </view>
+
+      <!-- 昵称 -->
+      <view class="form-item">
+        <view class="item-label">昵称</view>
+        <input 
+          class="item-input" 
+          value="{{userInfo.nickname}}" 
+          placeholder="请输入昵称" 
+          maxlength="20"
+          bindinput="onInputChange"
+          data-field="nickname"
+        />
+        <text style="font-size: 24rpx; color: #999; margin-left: 10rpx;">{{userInfo.nickname.length || 0}}/20</text>
+      </view>
+
+      <!-- 用户名 -->
+      <view class="form-item">
+        <view class="item-label">用户名</view>
+        <view class="item-value readonly">{{userInfo.username}}</view>
+      </view>
+
+      <!-- 性别 -->
+      <view class="form-item">
+        <view class="item-label">性别</view>
+        <picker 
+          class="item-picker" 
+          range="{{genderOptions}}" 
+          range-key="name" 
+          value="{{userInfo.gender}}"
+          bindchange="onPickerChange"
+        >
+          <view class="picker-value">
+            <text>{{genderOptions[userInfo.gender].name}}</text>
+            <van-icon name="arrow" class="item-arrow" />
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 个人简介 -->
+    <view class="edit-form" style="margin-top: 30rpx;">
+      <view class="form-item-block">
+        <view class="item-label">个人简介</view>
+        <textarea 
+          class="item-textarea" 
+          value="{{userInfo.introduction}}" 
+          placeholder="介绍一下自己吧（选填）" 
+          maxlength="200"
+          bindinput="onInputChange"
+          data-field="introduction"
+          auto-height
+        ></textarea>
+        <view class="textarea-counter">{{userInfo.introduction.length || 0}}/200</view>
+      </view>
+    </view>
+
+    <!-- 底部提示 -->
+    <view class="bottom-tips">
+      <van-icon name="info-o" color="#999999" style="margin-right: 8rpx;"/>
+      <text>请确保个人信息真实有效</text>
+    </view>
+  </block>
+
+  <!-- 提交按钮 -->
+  <view class="submit-btn-wrapper" wx:if="{{!loading}}">
+    <button 
+      class="submit-btn {{submitting || uploadingAvatar ? 'disabled' : ''}}" 
+      disabled="{{submitting || uploadingAvatar}}" 
+      bindtap="saveUserInfo"
+    >保存修改</button>
+  </view>
+</view> 

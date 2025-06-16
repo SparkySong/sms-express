@@ -1,0 +1,181 @@
+<!--pages/news/detail/detail.wxml-->
+<view class="container" wx:if="{{!loading}}">
+    <!-- 文章头部信息 -->
+    <view class="article-header">
+        <view class="article-title">{{news.title}}</view>
+        <view class="article-meta">
+            <view class="source-info">
+                <image class="source-avatar" src="{{news.sourceAvatar}}" mode="aspectFill"></image>
+                <text class="source-name">{{news.source}}</text>
+            </view>
+            <view class="right-info">
+                <text class="publish-time">{{news.publishTime}}</text>
+                <van-tag round type="primary" size="medium" custom-class="category-tag">{{news.category}}</van-tag>
+            </view>
+        </view>
+    </view>
+
+    <!-- 文章内容 -->
+    <view class="article-content">
+        <!-- 封面图片 -->
+        <view class="cover-image-container" wx:if="{{news.coverImage}}">
+            <image class="cover-image" src="{{news.coverImage}}" mode="widthFix" lazy-load></image>
+        </view>
+
+        <!-- 正文内容 -->
+        <rich-text class="article-text" nodes="{{news.content}}"></rich-text>
+    </view>
+
+    <!-- 原文链接 -->
+    <van-cell wx:if="{{news.sourceLink}}" title="查看原文" is-link value="" url="{{news.sourceLink}}" link-type="navigateTo" center custom-class="source-link-cell" bind:click="openSourceLink" />
+
+    <!-- 文章标签 -->
+    <view class="article-tags" wx:if="{{news.tags.length > 0}}">
+        <!-- <van-divider contentPosition="center" customStyle="margin: 16px 0;">相关标签</van-divider> -->
+        <view class="tags-list">
+            <van-tag wx:for="{{news.tags}}" wx:key="index" type="primary" plain size="medium" color="#3b82f6" custom-class="tag-item" bindtap="onTagTap" data-tag="{{item}}">{{item}}</van-tag>
+        </view>
+    </view>
+
+    <!-- 相关推荐 -->
+    <view class="related-news" wx:if="{{relatedNews.length > 0}}">
+        <van-divider contentPosition="center" customStyle="margin: 20px 0 16px;">相关推荐</van-divider>
+        <view class="related-list">
+            <view wx:for="{{relatedNews}}" wx:key="id" class="related-item" hover-class="item-hover" bindtap="viewRelatedNews" data-id="{{item.id}}">
+                <view class="related-content">
+                    <view class="related-title">{{item.title}}</view>
+                    <view class="related-info">
+                        <text class="related-source">{{item.source}}</text>
+                        <text class="dot">·</text>
+                        <text class="related-time">{{item.publishTime}}</text>
+                    </view>
+                </view>
+                <image class="related-image" src="{{item.image}}" mode="aspectFill" lazy-load></image>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- 加载中状态 -->
+<view class="loading-container" wx:else>
+    <van-skeleton title row="5" />
+</view>
+
+<!-- 底部操作栏 -->
+<view class="action-bar">
+    <button class="share-button-hidden" open-type="share"></button>
+    <van-button custom-class="action-button" icon="share-o" round plain bind:click="showShareOptions">
+        分享
+    </van-button>
+    <van-button custom-class="action-button" icon="{{isLiked ? 'like' : 'like-o'}}" round plain color="{{isLiked ? '#ff6b6b' : ''}}" bind:click="toggleLike">
+        {{news.likes > 0 ? news.likes : '点赞'}}
+    </van-button>
+    <van-button custom-class="action-button" icon="{{isFavorite ? 'star' : 'star-o'}}" round plain color="{{isFavorite ? '#ffc53d' : ''}}" bind:click="toggleFavorite">
+        收藏
+    </van-button>
+    <van-button custom-class="action-button" icon="chat-o" round plain bind:click="showComments">
+        {{news.comments > 0 ? news.comments : '评论'}}
+    </van-button>
+</view>
+
+<!-- 替换分享面板 -->
+<van-popup show="{{ showShare }}" position="bottom" round custom-style="padding-bottom: 30rpx;" bind:close="onShareClose">
+    <view class="custom-share-panel">
+        <view class="share-title">分享给好友</view>
+        <view class="share-options">
+            <view class="share-option" bindtap="shareToWechat">
+                <van-icon name="wechat" size="50rpx" color="#07C160" />
+                <view class="option-name">微信</view>
+            </view>
+            <view class="share-option" bindtap="shareToMoments">
+                <van-icon name="friends-o" size="50rpx" color="#07C160" />
+                <view class="option-name">朋友圈</view>
+            </view>
+            <view class="share-option" bindtap="copyLink">
+                <van-icon name="notes-o" size="50rpx" color="#1989fa" />
+                <view class="option-name">复制链接</view>
+            </view>
+            <view class="share-option" bindtap="shareToFavorite">
+                <van-icon name="{{isFavorite ? 'star' : 'star-o'}}" size="50rpx" color="#ffc53d" />
+                <view class="option-name">收藏</view>
+            </view>
+        </view>
+        <view class="share-cancel" bindtap="onShareClose">取消</view>
+    </view>
+</van-popup>
+<!-- 评论面板 -->
+<van-popup show="{{ showCommentsPopup }}" position="bottom" custom-style="height: 70%;" round bind:close="onCommentsClose">
+    <view class="comments-popup">
+        <view class="comments-header">
+            <text class="comments-title">评论 ({{comments.length || 0}})</text>
+            <van-icon name="cross" size="18" bind:click="onCommentsClose" />
+        </view>
+        <scroll-view scroll-y class="comments-content">
+            <!-- 评论列表 -->
+            <view class="empty-comments" wx:if="{{comments.length == 0}}">
+                <van-icon name="comment-o" size="48" />
+                <view class="empty-text">暂无评论，快来发表第一条评论吧</view>
+            </view>
+
+            <view class="comment-list" wx:else>
+                <view wx:for="{{comments}}" wx:key="id" class="comment-item">
+                    <view class="comment-user">
+                        <image class="user-avatar" src="{{item.avatar_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'}}" mode="aspectFill"></image>
+                        <view class="user-info">
+                            <view class="user-name">{{item.user_name || '游客'}}</view>
+                            <view class="comment-time">{{item.create_time}}</view>
+                        </view>
+                    </view>
+                    <view class="comment-content">{{item.content}}</view>
+                    <view class="comment-actions">
+                        <view class="comment-like {{item.is_liked ? 'liked' : ''}}" catchtap="likeComment" data-id="{{item.id}}">
+                            <van-icon name="{{item.is_liked ? 'like' : 'like-o'}}" size="14px" />
+                            <text wx:if="{{item.like_count > 0}}">{{item.like_count}}</text>
+                        </view>
+                        <view class="comment-reply" catchtap="replyComment" data-id="{{item.id}}" data-name="{{item.user_name}}">
+                            <van-icon name="comment-o" size="14px" />
+                            <text>回复</text>
+                        </view>
+                    </view>
+
+                    <!-- 回复列表 -->
+                    <view class="reply-list" wx:if="{{item.replies && item.replies.length > 0}}">
+                        <view wx:for="{{item.replies}}" wx:key="id" wx:for-item="reply" class="reply-item">
+                            <view class="reply-user">
+                                <image class="user-avatar-sm" src="{{reply.avatar_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'}}" mode="aspectFill"></image>
+                                <view class="reply-info">
+                                    <view class="reply-name-content">
+                                        <text class="user-name">{{reply.user_name || '游客'}}</text>
+                                        <text wx:if="{{reply.reply_to_name}}" class="reply-to">回复</text>
+                                        <text wx:if="{{reply.reply_to_name}}" class="user-name">{{reply.reply_to_name}}</text>
+                                        <text>：</text>
+                                        <text class="reply-content">{{reply.content}}</text>
+                                    </view>
+                                    <view class="reply-bottom">
+                                        <text class="comment-time">{{reply.create_time}}</text>
+                                        <view class="reply-actions">
+                                            <view class="comment-like {{reply.is_liked ? 'liked' : ''}}" catchtap="likeReply" data-id="{{reply.id}}" data-comment-id="{{item.id}}">
+                                                <van-icon name="{{reply.is_liked ? 'like' : 'like-o'}}" size="12px" />
+                                                <text wx:if="{{reply.like_count > 0}}">{{reply.like_count}}</text>
+                                            </view>
+                                            <view class="comment-reply" catchtap="replyComment" data-id="{{item.id}}" data-name="{{reply.user_name}}">
+                                                <van-icon name="comment-o" size="12px" />
+                                                <text>回复</text>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </scroll-view>
+
+        <!-- 评论输入框 -->
+        <view class="comment-input-area">
+            <input class="comment-input" placeholder="{{replyTo ? '回复 ' + replyTo + '：' : '写评论...'}}" value="{{commentContent}}" focus="{{showCommentsPopup}}" bindinput="onCommentInput" confirm-type="send" bindconfirm="submitComment" />
+            <view class="comment-submit {{commentContent ? 'active' : ''}}" bindtap="submitComment">发送</view>
+        </view>
+    </view>
+</van-popup>

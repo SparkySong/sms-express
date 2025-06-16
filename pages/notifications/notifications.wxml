@@ -1,0 +1,75 @@
+<!--pages/notifications/notifications.wxml-->
+<view class="container">
+  <!-- 头部标题 -->
+  <view class="header">
+    <view class="left">
+      <view class="title">消息通知 ({{notificationsList.length}})</view>
+    </view>
+    <view class="actions">
+      <van-button custom-class="action-btn" type="danger" size="small" bindtap="clearAllNotifications">清空</van-button>
+    </view>
+  </view>
+
+  <!-- 消息列表为空 -->
+  <view wx:if="{{notificationsList.length === 0}}" class="empty-container">
+    <van-empty 
+      description="暂无消息通知" 
+      image="https://img.yzcdn.cn/vant/empty-image-default.png"
+    />
+  </view>
+
+  <!-- 消息列表 -->
+  <view wx:else class="notification-list">
+    <view class="notification-items">
+      <view 
+        wx:for="{{notificationsList}}" 
+        wx:key="id" 
+        class="notification-item"
+        bindtap="viewNotification"
+        data-id="{{item.id}}"
+      >
+        <!-- 内容区 -->
+        <view class="item-content">
+          <!-- 图标 -->
+          <view class="item-icon" style="background-color: {{item.iconBg || '#1989fa'}}">
+            <van-icon name="{{item.icon || 'bell'}}" color="#fff" size="18px" />
+            <!-- 未读标记 -->
+            <view wx:if="{{!item.isRead}}" class="unread-dot"></view>
+          </view>
+          
+          <!-- 消息信息 -->
+          <view class="item-info">
+            <view class="item-header">
+              <view class="item-title">{{item.title}}</view>
+              <view class="item-time">{{item.time}}</view>
+            </view>
+            <view class="item-desc">{{item.content}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部信息 -->
+  <view class="bottom-info" wx:if="{{notificationsList.length > 0}}">
+    <text>— 没有更多消息了 —</text>
+  </view>
+</view>
+
+<!-- 消息详情弹窗 -->
+<van-dialog
+  use-slot
+  title="{{currentNotification.title}}"
+  show="{{ showDetailDialog }}"
+  confirm-button-text="关闭"
+  bind:close="closeDetailDialog"
+  bind:confirm="markAsRead"
+>
+  <view class="notification-detail">
+    <view class="detail-time">{{currentNotification.time}}</view>
+    <view class="detail-content">{{currentNotification.content}}</view>
+  </view>
+</van-dialog>
+
+<!-- 确认对话框 -->
+<van-dialog id="van-dialog" /> 

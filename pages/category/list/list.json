@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "分类浏览",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-skeleton": "@vant/weapp/skeleton/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-loading": "@vant/weapp/loading/index",
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-search": "@vant/weapp/search/index"
+  }
+} 

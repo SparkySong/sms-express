@@ -1,0 +1,163 @@
+/* pages/publish/publish.wxss */
+.publish-container {
+  padding: 30rpx;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+}
+
+.form-item {
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);
+}
+
+.label {
+  display: block;
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+}
+
+.input {
+  width: 100%;
+  height: 80rpx;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.title-input {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.picker {
+  width: 100%;
+}
+
+.picker-inner {
+  height: 80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.arrow {
+  color: #999;
+  font-size: 24rpx;
+}
+
+.cover-upload {
+  width: 100%;
+  height: 340rpx;
+  background-color: #f7f7f7;
+  border-radius: 8rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.upload-btn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #999;
+}
+
+.upload-btn.hidden {
+  display: none;
+}
+
+.upload-icon {
+  font-size: 60rpx;
+  margin-bottom: 20rpx;
+}
+
+.upload-text {
+  font-size: 28rpx;
+}
+
+.cover-preview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8rpx;
+}
+
+.cover-delete {
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  width: 50rpx;
+  height: 50rpx;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+
+.content-item {
+  min-height: 500rpx;
+}
+
+.content-textarea {
+  width: 100%;
+  min-height: 400rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #333;
+}
+
+.abstract-input {
+  height: 160rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.word-count {
+  text-align: right;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.btn-area {
+  display: flex;
+  margin-top: 40rpx;
+  justify-content: space-between;
+}
+
+.submit-btn {
+  width: 45%;
+  height: 90rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 45rpx;
+  font-size: 32rpx;
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.publish-btn {
+  background-color: #1989fa;
+  color: #fff;
+}

@@ -1,0 +1,14 @@
+{
+  "usingComponents": { 
+    "van-button": "@vant/weapp/button/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-share-sheet": "@vant/weapp/share-sheet/index",
+    "van-skeleton": "@vant/weapp/skeleton/index",
+    "van-loading": "@vant/weapp/loading/index",
+    "van-popup": "@vant/weapp/popup/index"
+  },
+  "navigationBarTitleText": "文章详情"
+}

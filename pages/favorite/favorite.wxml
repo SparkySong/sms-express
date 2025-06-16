@@ -1,0 +1,82 @@
+<!--pages/favorite/favorite.wxml-->
+<view class="container">
+  <!-- 顶部操作按钮 -->
+  <view class="top-action">
+    <view wx:if="{{favorites.length > 0}}" class="edit-btn" bindtap="toggleEditMode">
+      <text>{{isEditMode ? '完成' : '编辑'}}</text>
+    </view>
+  </view>
+  
+  <!-- 编辑模式下的批量操作 -->
+  <view class="batch-actions" wx:if="{{isEditMode && favorites.length > 0}}">
+    <view class="select-all" bindtap="selectAll">
+      <van-checkbox value="{{selectedItems.length === favorites.length && favorites.length > 0}}" icon-size="16px">全选</van-checkbox>
+    </view>
+    <view class="action-buttons">
+      <van-button type="danger" size="small" plain disabled="{{selectedItems.length === 0}}" bind:click="deleteSelected">删除</van-button>
+      <van-button wx:if="{{favorites.length > 0}}" type="warning" size="small" plain class="clear-btn" bind:click="clearAllFavorites">清空</van-button>
+    </view>
+  </view>
+  
+  <!-- 加载中状态 -->
+  <view wx:if="{{isLoading && !favorites.length}}" class="loading-placeholder">
+    <van-skeleton title row="3" />
+    <van-skeleton title row="3" />
+    <van-skeleton title row="3" />
+  </view>
+  
+  <!-- 收藏内容列表 -->
+  <view class="favorite-list" wx:else>
+    <block wx:if="{{favorites.length > 0}}">
+      <van-checkbox-group value="{{ selectedItems }}" bind:change="onCheckboxChange">
+        <view wx:for="{{favorites}}" wx:key="id" class="favorite-item">
+          <!-- 编辑模式下显示复选框 -->
+          <view class="checkbox-wrapper" wx:if="{{isEditMode}}">
+            <van-checkbox name="{{item.id}}" class="item-checkbox"></van-checkbox>
+          </view>
+          
+          <!-- 新闻内容 -->
+          <view class="news-item" bindtap="viewNews" data-id="{{item.id}}">
+            <!-- 标签和标题 -->
+            <view class="news-main">
+              <view class="news-tag-container">
+                <view class="news-tag">{{item.category}}</view>
+              </view>
+              <view class="news-title">{{item.title}}</view>
+              <view class="news-info">
+                <text class="news-source">{{item.source}}</text>
+                <text class="news-dot">·</text>
+                <text class="news-time">{{item.time}}</text>
+              </view>
+            </view>
+            
+            <!-- 图片 -->
+            <view class="news-image-container">
+              <image class="news-image" src="{{item.imageUrl}}" mode="aspectFill" lazy-load></image>
+            </view>
+            
+            <!-- 删除按钮（非编辑模式） -->
+            <view wx:if="{{!isEditMode}}" class="delete-btn" catchtap="removeFavorite" data-id="{{item.id}}">
+              <van-icon name="delete" size="18px" color="#f44336" />
+            </view>
+          </view>
+        </view>
+      </van-checkbox-group>
+      
+      <!-- 底部加载状态 -->
+      <view class="loading-status">
+        <van-loading size="24px" color="#1989fa" wx:if="{{isLoading && favorites.length > 0}}">加载中...</van-loading>
+        <text wx:elif="{{loadAll && favorites.length > 0}}" class="no-more">- 已经到底啦 -</text>
+      </view>
+    </block>
+    
+    <!-- 空状态 -->
+    <view wx:else class="empty-state">
+      <van-empty 
+        description="暂无收藏内容"
+        image="https://img.yzcdn.cn/vant/empty-image-default.png">
+        <van-button round type="primary" class="bottom-button" bindtap="goToIndex">浏览热门新闻</van-button>
+      </van-empty>
+    </view>
+  </view>
+</view>

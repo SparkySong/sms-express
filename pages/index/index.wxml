@@ -1,0 +1,72 @@
+<view class="container">
+    <!-- 分类导航栏 -->
+    <van-tabs active="{{ currentCategory }}" bind:change="onTabChange" animated swipeable sticky color="#1989fa">
+        <van-tab wx:for="{{ categories }}" wx:key="id" title="{{ item.name }}" name="{{ item.name }}"></van-tab>
+        <!-- 没有分类数据时显示默认分类 -->
+        <van-tab wx:if="{{ categories.length === 0 }}" title="推荐" name="推荐"></van-tab>
+    </van-tabs>
+
+    <!-- 今日头条轮播图 -->
+    <view class="headline-section">
+        <view class="section-title">今日头条</view>
+        <swiper class="headline-swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{500}}" circular="{{true}}">
+            <swiper-item wx:for="{{headlineNews}}" wx:key="id" bindtap="viewNews" data-id="{{item.id}}">
+                <view class="headline-card">
+                    <van-image width="100%" height="200" fit="cover" src="{{item.imageUrl}}" radius="8" lazy-load></van-image>
+                    <view class="headline-overlay">
+                        <view class="headline-title">{{item.title}}</view>
+                        <view class="headline-desc">{{item.desc}}</view>
+                    </view>
+                </view>
+            </swiper-item>
+            <!-- 没有头条数据时显示提示 -->
+            <swiper-item wx:if="{{ headlineNews.length === 0 }}">
+                <view class="headline-card">
+                    <view class="empty-data">
+                        <van-icon name="info-o" size="32px" />
+                        <text>暂无头条数据</text>
+                    </view>
+                </view>
+            </swiper-item>
+        </swiper>
+    </view>
+
+    <!-- 最新资讯 -->
+    <view class="news-section">
+        <view class="section-title">最新资讯</view>
+        <van-cell-group>
+            <view wx:for="{{newsList}}" wx:key="id" class="news-item">
+                <view class="news-content" bindtap="viewNews" data-id="{{item.id}}">
+                    <view class="news-title">{{item.title}}</view>
+                    <view class="news-info">
+                        <text class="news-source">{{item.source}}</text>
+                        <text class="news-dot">·</text>
+                        <text class="news-time">{{item.time}}</text>
+                        <text class="news-dot">·</text>
+                        <text class="news-reads">{{item.reads}}阅读</text>
+                    </view>
+                </view>
+                <van-image custom-class="news-image" width="120" height="80" fit="cover" src="{{item.imageUrl}}" radius="4" lazy-load bind:click="viewNews" data-id="{{item.id}}"></van-image>
+                <view class="news-actions">
+                    <view class="action-item" catchtap="likeNews" data-id="{{item.id}}">
+                        <van-icon name="like-o" class="action-icon" />
+                        <text class="action-count">{{item.likes}}</text>
+                    </view>
+                    <view class="action-item" catchtap="shareNews" data-id="{{item.id}}">
+                        <van-icon name="share-o" class="action-icon" />
+                        <text class="action-text">分享</text>
+                    </view>
+                </view>
+            </view>
+            <!-- 没有文章数据时显示提示 -->
+            <view wx:if="{{ newsList.length === 0 }}" class="empty-data">
+                <van-icon name="info-o" size="32px" />
+                <text>暂无相关文章</text>
+            </view>
+        </van-cell-group>
+    </view>
+
+    <!-- 加载提示 -->
+    <view wx:if="{{ hasMoreData }}" class="load-more">上拉加载更多</view>
+    <view wx:else class="load-more">没有更多数据了</view>
+</view>

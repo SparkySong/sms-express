@@ -1,0 +1,59 @@
+<!--pages/publish/publish.wxml-->
+<view class="publish-container">
+  <!-- 标题输入 -->
+  <view class="form-item">
+    <text class="label">标题</text>
+    <input class="input title-input" placeholder="请输入新闻标题" value="{{title}}" bindinput="onTitleInput" />
+  </view>
+
+  <!-- 分类选择 -->
+  <view class="form-item">
+    <text class="label">分类</text>
+    <picker class="picker" bindchange="onCategoryChange" value="{{categoryIndex}}" range="{{categories}}" range-key="name">
+      <view class="picker-inner">
+        <text>{{categories[categoryIndex].name || '请选择分类'}}</text>
+        <text class="arrow">▼</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 封面上传 -->
+  <view class="form-item">
+    <text class="label">封面图片</text>
+    <view class="cover-upload">
+      <view class="cover-preview" wx:if="{{coverUrl}}">
+        <image class="cover-image" src="{{coverUrl}}" mode="aspectFill"></image>
+        <view class="cover-delete" bindtap="removeCover">×</view>
+      </view>
+      <view class="upload-btn {{coverUrl ? 'hidden' : ''}}" bindtap="chooseImage">
+        <text class="upload-icon">+</text>
+        <text class="upload-text">上传封面</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 文章内容 -->
+  <view class="form-item content-item">
+    <text class="label">内容</text>
+    <textarea class="content-textarea" placeholder="请输入新闻内容" value="{{content}}" bindinput="onContentInput" maxlength="-1" />
+  </view>
+
+  <!-- 摘要 -->
+  <view class="form-item">
+    <text class="label">摘要</text>
+    <textarea class="input abstract-input" placeholder="请输入新闻摘要(选填)" value="{{abstract}}" bindinput="onAbstractInput" maxlength="100" />
+    <text class="word-count">{{abstract.length}}/100</text>
+  </view>
+
+  <!-- 来源 -->
+  <view class="form-item">
+    <text class="label">来源</text>
+    <input class="input source-input" placeholder="请输入新闻来源(选填)" value="{{source}}" bindinput="onSourceInput" />
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="btn-area">
+    <button class="submit-btn" bindtap="saveAsDraft">保存草稿</button>
+    <button class="submit-btn publish-btn" bindtap="publishArticle">发布文章</button>
+  </view>
+</view>

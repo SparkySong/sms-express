@@ -1,0 +1,79 @@
+<!--pages/search/result.wxml-->
+<view class="container">
+  <!-- 搜索框 -->
+  <view class="search-header">
+    <van-search
+      value="{{ searchValue }}"
+      placeholder="输入关键词搜索"
+      shape="round"
+      background="#fff"
+      show-action
+      bind:search="onSearch"
+      bind:change="onSearchChange"
+    >
+      <view slot="action" bindtap="showSortOptions" class="sort-action">
+        <van-icon name="filter-o" size="16px" />
+        <text>筛选</text>
+      </view>
+    </van-search>
+  </view>
+  
+  <!-- 搜索结果 -->
+  <view class="search-results">
+    <!-- 加载中状态 -->
+    <view wx:if="{{ isLoading && !results.length }}" class="loading-placeholder">
+      <van-skeleton title row="3" />
+      <van-skeleton title row="3" />
+    </view>
+    
+    <!-- 空状态 -->
+    <view wx:elif="{{ !results.length }}" class="empty-state">
+      <van-empty 
+        description="没有找到相关内容" 
+        image="https://img.yzcdn.cn/vant/empty-image-search.png"
+      />
+    </view>
+    
+    <!-- 结果列表 -->
+    <view wx:else class="results-list">
+      <view 
+        wx:for="{{ results }}" 
+        wx:key="id"
+        class="result-item"
+        bindtap="onResultTap"
+        data-id="{{ item.id }}"
+        hover-class="result-item-hover"
+      >
+        <view class="result-content">
+          <view class="result-title">{{ item.title }}</view>
+          <view class="result-abstract">{{ item.abstract }}</view>
+          <view class="result-meta">
+            <text class="result-category">{{ item.category }}</text>
+            <text class="separator">·</text>
+            <text class="result-source">{{ item.source }}</text>
+            <text class="separator">·</text>
+            <text class="result-time">{{ item.publishTime }}</text>
+            <view class="result-views">
+              <van-icon name="eye-o" size="12px" />
+              <text>{{ item.views }}</text>
+            </view>
+          </view>
+        </view>
+        <image 
+          class="result-image" 
+          src="{{ item.coverUrl }}" 
+          mode="aspectFill"
+          lazy-load
+        ></image>
+      </view>
+    </view>
+    
+    <!-- 底部加载状态 -->
+    <view class="loading-status">
+      <van-loading size="24px" color="#1989fa" wx:if="{{ isLoading && results.length > 0 }}">加载中...</van-loading>
+      <text wx:elif="{{ loadAll && results.length > 0 }}" class="no-more">- 已经到底啦 -</text>
+    </view>
+  </view>
+  
+
+</view> 

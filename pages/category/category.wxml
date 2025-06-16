@@ -1,0 +1,100 @@
+<view class="container">
+  <!-- 搜索框 -->
+  <view class="search-container">
+    <van-search
+      value="{{ searchValue }}"
+      placeholder="搜索感兴趣的内容"
+      shape="round"
+      background="transparent"
+      custom-class="custom-search"
+      bind:change="onSearchChange"
+      bind:search="onSearch"
+    />
+  </view>
+  
+  <!-- 加载状态 -->
+  <view wx:if="{{isLoading}}" class="loading-container">
+    <van-loading size="24px" color="#1989fa">加载中...</van-loading>
+  </view>
+  
+  <!-- 无数据提示 -->
+  <view wx:elif="{{!categories.length && !hotCategories.length}}" class="empty-container">
+    <van-empty description="暂无分类数据" />
+    <van-button type="info" size="small" custom-class="refresh-btn" bind:tap="loadCategories">
+      刷新
+    </van-button>
+  </view>
+  
+  <!-- 内容区域 -->
+  <block wx:else>
+    <!-- 热门分类区域 -->
+    <view class="section-block" wx:if="{{hotCategories.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">热门分类</text>
+        <text class="section-subtitle">精选热点内容分类</text>
+      </view>
+      <view class="hot-tags-wrapper">
+        <view class="hot-tag-list">
+          <view 
+            wx:for="{{ hotCategories }}" 
+            wx:key="id"
+            class="hot-category-item"
+            style="background: linear-gradient(135deg, {{ item.color_start || '#ff9a9e' }} 0%, {{ item.color_end || '#ff6b6b' }} 100%)"
+            bind:tap="onHotCategoryTap"
+            data-id="{{ item.id }}"
+          >
+            <van-icon name="{{ item.icon || 'label-o' }}" color="#ffffff" size="22px" />
+            <text class="category-name">{{ item.name }}</text>
+            <text class="category-desc" wx:if="{{ item.description }}">{{ item.description }}</text>
+            <view class="article-count">{{ item.articleCount || 0 }}篇文章</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 全部分类列表 -->
+    <view class="section-block" wx:if="{{categories.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">全部分类</text>
+        <text class="section-subtitle">浏览更多内容分类</text>
+      </view>
+      <view class="category-list">
+        <view 
+          wx:for="{{ categories }}" 
+          wx:key="id" 
+          class="category-item"
+          bind:tap="onCategoryTap"
+          data-id="{{ item.id }}"
+          hover-class="category-item-hover"
+        >
+          <view class="category-icon-wrapper" style="background: {{ item.bg_color || '#1989fa' }}">
+            <van-icon name="{{ item.icon || 'label-o' }}" color="#ffffff" size="24px" />
+          </view>
+          <text class="category-name">{{ item.name }}</text>
+          <text class="category-count">{{ item.articleCount || 0 }}篇</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 最近浏览分类 -->
+    <view class="section-block" wx:if="{{recentCategories.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">最近浏览</text>
+        <text class="recent-clear" bind:tap="clearRecentCategories">清空</text>
+      </view>
+      <view class="recent-categories">
+        <view 
+          wx:for="{{ recentCategories }}" 
+          wx:key="id" 
+          class="recent-category-tag"
+          bind:tap="onCategoryTap"
+          data-id="{{ item.id }}"
+          style="background-color: {{ item.bg_color || '#f2f3f5' }};color: {{ item.text_color || '#323233' }};"
+        >
+          <van-icon wx:if="{{ item.icon }}" name="{{ item.icon }}" size="14px" class="tag-icon" />
+          <text>{{ item.name }}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view> 
