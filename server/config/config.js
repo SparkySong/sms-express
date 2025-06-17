@@ -21,15 +21,15 @@ module.exports = {
   
   // 微信小程序配置
   wechat: {
-    appId: process.env.WECHAT_APPID || 'wxfc125c7e60599fc1',
-    appSecret: process.env.WECHAT_SECRET || '4dc426481179aaf92715cf1608f2500f'
+    appId: process.env.WECHAT_APPID || 'appId',
+    appSecret: process.env.WECHAT_SECRET || 'appSecret'
   },
   
   // 阿里云OSS配置
   oss: {
     region: process.env.OSS_REGION || 'oss-cn-chengdu',
-    accessKeyId: process.env.OSS_ACCESS_KEY_ID || 'LTAI5t8tFKeqBEWDoCaVpPsP',
-    accessKeySecret: process.env.OSS_ACCESS_KEY_SECRET || 'YniGPjILmFo3KmMUkyBNa61BOwQNkX',
+    accessKeyId: process.env.OSS_ACCESS_KEY_ID || 'accessKeyId',
+    accessKeySecret: process.env.OSS_ACCESS_KEY_SECRET || 'accessKeySecret',
     bucket: process.env.OSS_BUCKET || 'toursmi',
     directory: process.env.OSS_DIRECTORY || 'user-avatars',
     endpoint: process.env.OSS_ENDPOINT || 'oss-cn-chengdu.aliyuncs.com',

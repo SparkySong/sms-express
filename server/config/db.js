@@ -4,7 +4,7 @@ const mysql = require('mysql2/promise');
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '20031211',
+  password: process.env.DB_PASSWORD || 'XXXX',
   database: process.env.DB_NAME || 'news_platform',
   waitForConnections: true,
   connectionLimit: 10,
