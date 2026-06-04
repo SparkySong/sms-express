@@ -58,7 +58,7 @@ Page({
     wx.setClipboardData({
       data: text,
       success: () => {
-        Toast('复制成功');
+        Toast('复制成功11');
       }
     });
   },

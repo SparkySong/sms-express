@@ -15,7 +15,7 @@ CREATE TABLE users (
     register_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
     last_login_time DATETIME COMMENT '最后登录时间',
     status TINYINT DEFAULT 1 COMMENT '状态：0禁用，1正常'
-) COMMENT '用户表';
+) COMMENT='用户表';
 
 -- 分类表
 CREATE TABLE categories (
@@ -29,7 +29,7 @@ CREATE TABLE categories (
     text_color VARCHAR(20) COMMENT '文本颜色',
     sort_order INT DEFAULT 0 COMMENT '排序值',
     is_hot TINYINT DEFAULT 0 COMMENT '是否热门：0否，1是'
-) COMMENT '分类表';
+) COMMENT='分类表';
 
 -- 文章表
 CREATE TABLE articles (
@@ -49,7 +49,7 @@ CREATE TABLE articles (
     is_top TINYINT DEFAULT 0 COMMENT '是否置顶：0否，1是',
     status TINYINT DEFAULT 1 COMMENT '状态：0删除，1正常',
     FOREIGN KEY (category_id) REFERENCES categories(id)
-) COMMENT '文章表';
+) COMMENT='文章表';
 
 -- 文章图片表
 CREATE TABLE article_images (
@@ -58,7 +58,7 @@ CREATE TABLE article_images (
     image_url VARCHAR(255) NOT NULL COMMENT '图片URL',
     sort_order INT DEFAULT 0 COMMENT '排序值',
     FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE
-) COMMENT '文章图片表';
+) COMMENT='文章图片表';
 
 -- 收藏表
 CREATE TABLE favorites (
@@ -69,7 +69,7 @@ CREATE TABLE favorites (
     UNIQUE KEY (user_id, article_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE
-) COMMENT '收藏表';
+) COMMENT='收藏表';
 
 -- 浏览历史表
 CREATE TABLE read_history (
@@ -79,8 +79,8 @@ CREATE TABLE read_history (
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '浏览时间',
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE,
-    INDEX idx_user_time (user_id, create_time DESC) COMMENT '用于快速查询用户历史'
-) COMMENT '阅读历史表';
+    INDEX idx_user_time (user_id, create_time DESC)
+) COMMENT='阅读历史表';
 
 -- 评论表
 CREATE TABLE comments (
@@ -95,7 +95,7 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE,
     FOREIGN KEY (parent_id) REFERENCES comments(id) ON DELETE SET NULL
-) COMMENT '评论表';
+) COMMENT='评论表';
 
 -- 评论点赞表
 CREATE TABLE comment_likes (
@@ -106,7 +106,7 @@ CREATE TABLE comment_likes (
     UNIQUE KEY (user_id, comment_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE
-) COMMENT '评论点赞表';
+) COMMENT='评论点赞表';
 
 -- 通知表
 CREATE TABLE notifications (
@@ -118,7 +118,7 @@ CREATE TABLE notifications (
     is_read TINYINT DEFAULT 0 COMMENT '是否已读：0未读，1已读',
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-) COMMENT '通知表';
+) COMMENT='通知表';
 
 -- 插入测试数据
 
