@@ -6,8 +6,7 @@ const response = require('../utils/response');
 const logger = require('../utils/logger');
 const fetch = require('node-fetch');
 const { pool } = require('../config/db');
-const ossUtil = require('../utils/ossUtil');
-const { cleanupUploadedFile } = require('../middleware/upload');
+
 
 /**
  * 用户控制器
@@ -355,7 +354,6 @@ class UserController {
    * @param {Response} res - 响应对象
    */
   async uploadAvatar(req, res) {
-    let ossUrl = null;
     const userId = req.user.id;
 
     try {
@@ -365,32 +363,20 @@ class UserController {
       }
 
       const file = req.file;
-      const filePath = file.path;
-      const originalName = file.originalname;
+      const fileName = file.filename;
 
-      // 上传文件到OSS
-      ossUrl = await ossUtil.uploadFile(filePath, originalName);
+      // 本地存储模式：直接使用上传后的文件名生成URL
+      const avatarUrl = `${req.protocol}://${req.get('host')}/uploads/${fileName}`;
 
       // 更新用户头像
-      await UserModel.update(userId, { avatar_url: ossUrl });
+      await UserModel.update(userId, { avatar_url: avatarUrl });
 
-      // 清理临时文件
-      cleanupUploadedFile(filePath);
+      logger.info(`头像上传成功: ${avatarUrl}`);
 
       // 返回成功响应
-      return response.success(res, { avatar_url: ossUrl }, '头像上传成功');
+      return response.success(res, { avatar_url: avatarUrl }, '头像上传成功');
     } catch (error) {
       logger.error(`头像上传失败: ${error.message}`);
-
-      // 如果OSS上传成功但数据库更新失败，尝试删除已上传的OSS文件
-      if (ossUrl) {
-        try {
-          await ossUtil.deleteFile(ossUrl);
-        } catch (deleteError) {
-          logger.error(`删除OSS文件失败: ${deleteError.message}`);
-        }
-      }
-
       return response.error(res, 500, '头像上传失败，请重试');
     }
   }

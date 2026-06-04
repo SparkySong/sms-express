@@ -87,8 +87,9 @@ Page({
         api.category.getAll().then(res => {
             wx.hideLoading();
             if (res.success) {
+                const categories = [{ id: '', name: '请选择分类' }, ...res.data];
                 this.setData({
-                    categories: res.data
+                    categories: categories
                 });
             } else {
                 wx.showToast({

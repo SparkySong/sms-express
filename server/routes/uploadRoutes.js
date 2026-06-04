@@ -1,15 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-const fs = require('fs');
 const { verifyToken } = require('../middleware/auth');
 const { upload, handleUploadError } = require('../middleware/upload');
-const ossUtil = require('../utils/ossUtil');
 const response = require('../utils/response');
 const logger = require('../utils/logger');
 
 /**
- * 图片上传路由
+ * 图片上传路由 - 本地存储模式
  */
 
 // 上传单张图片
@@ -19,19 +16,13 @@ router.post('/image', verifyToken, upload.single('file'), handleUploadError, asy
       return response.validationError(res, null, '未接收到文件');
     }
 
-    // 获取本地临时文件路径
-    const localFilePath = req.file.path;
+    // 本地文件路径和文件名
     const fileName = req.file.filename;
     
-    // 上传到阿里云OSS
-    const imageUrl = await ossUtil.uploadFile(localFilePath, fileName);
-    
-    // 删除本地临时文件
-    fs.unlink(localFilePath, (err) => {
-      if (err) {
-        logger.error(`删除临时文件失败: ${err.message}`);
-      }
-    });
+    // 返回可访问的URL（通过静态文件服务访问）
+    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${fileName}`;
+
+    logger.info(`图片上传成功: ${imageUrl}`);
 
     return response.success(res, { url: imageUrl }, '图片上传成功');
   } catch (error) {
