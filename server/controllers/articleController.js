@@ -134,15 +134,16 @@ class ArticleController {
         return response.validationError(res, null, '标题、内容和分类不能为空');
       }
 
-      // 构建文章数据
+      // 构建文章数据，自动记录发布者 user_id
       const articleData = {
         title,
         abstract: abstract || title.substring(0, 100),
         content,
         cover_url,
         category_id,
-        source,
-        author,
+        source: source || '简讯速递',
+        author: author || req.user.username,
+        user_id: req.user.id,
         is_top: is_top ? 1 : 0,
         images
       };
@@ -180,6 +181,11 @@ class ArticleController {
         return response.notFound(res, '文章不存在或已删除');
       }
 
+      // 权限检查：只有文章作者或管理员才能编辑
+      if (article.user_id !== req.user.id && req.user.role !== 'admin') {
+        return response.forbidden(res, '无权编辑此文章');
+      }
+
       // 构建更新数据
       const updateData = {};
       if (title !== undefined) updateData.title = title;
@@ -208,7 +214,7 @@ class ArticleController {
   }
 
   /**
-   * 删除文章（管理员功能）
+   * 删除文章（作者或管理员可删除）
    * @param {Request} req - 请求对象
    * @param {Response} res - 响应对象
    */
@@ -224,6 +230,11 @@ class ArticleController {
       const article = await ArticleModel.getArticleById(parseInt(id), false);
       if (!article) {
         return response.notFound(res, '文章不存在或已删除');
+      }
+
+      // 权限检查：只有文章作者或管理员才能删除
+      if (article.user_id !== req.user.id && req.user.role !== 'admin') {
+        return response.forbidden(res, '无权删除此文章');
       }
 
       // 删除文章（实际上是将状态设为不可见）

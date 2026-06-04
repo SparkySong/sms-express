@@ -22,7 +22,9 @@ Page({
         isSubmitting: false,
         isLoggedIn: false,
         isDraft: false,
-        draftId: ''
+        draftId: '',
+        isEditing: false,   // 是否为编辑模式
+        articleId: null      // 编辑的文章ID
   },
 
   /**
@@ -38,6 +40,11 @@ Page({
         // 如果有草稿ID参数，加载草稿
         if (options.draft_id) {
             this.loadDraft(options.draft_id);
+        }
+
+        // 如果有article_id参数，进入编辑模式
+        if (options.article_id) {
+            this.loadArticleForEdit(options.article_id);
         }
     },
 
@@ -88,9 +95,19 @@ Page({
             wx.hideLoading();
             if (res.success) {
                 const categories = [{ id: '', name: '请选择分类' }, ...res.data];
-                this.setData({
-                    categories: categories
-                });
+                const setData = { categories: categories };
+
+                // 如果在编辑模式且有待匹配的分类ID
+                if (this._pendingCategoryId) {
+                    const categoryId = this._pendingCategoryId;
+                    const index = categories.findIndex(c => c.id === categoryId);
+                    if (index > 0) {
+                        setData.categoryIndex = index;
+                    }
+                    this._pendingCategoryId = null;
+                }
+
+                this.setData(setData);
             } else {
                 wx.showToast({
                     title: '获取分类失败',
@@ -115,6 +132,62 @@ Page({
         this.setData({
             isDraft: true,
             draftId: draftId
+        });
+    },
+
+    /**
+     * 加载文章数据用于编辑
+     */
+    loadArticleForEdit(articleId) {
+        const that = this;
+        wx.showLoading({ title: '加载中' });
+
+        wx.request({
+            url: `${api.baseUrl}/articles/${articleId}`,
+            method: 'GET',
+            header: {
+                'Authorization': `Bearer ${wx.getStorageSync('token')}`
+            },
+            success(res) {
+                wx.hideLoading();
+                if (res.data.success) {
+                    const article = res.data.data;
+                    that.setData({
+                        isEditing: true,
+                        articleId: articleId,
+                        title: article.title || '',
+                        content: article.content || '',
+                        abstract: article.abstract || '',
+                        source: article.source || '',
+                        coverUrl: article.cover_url || '',
+                        coverFile: null,
+                        categoryId: article.category_id || 0
+                    });
+
+                    // 匹配分类：如果 categories 已加载则立即匹配，否则等 loadCategories 回调中匹配
+                    const categoryId = article.category_id;
+                    if (that.data.categories.length > 0) {
+                        const index = that.data.categories.findIndex(c => c.id === categoryId);
+                        if (index > 0) {
+                            that.setData({ categoryIndex: index });
+                        }
+                    } else {
+                        that._pendingCategoryId = categoryId;
+                    }
+
+                    wx.setNavigationBarTitle({ title: '编辑文章' });
+                } else {
+                    wx.showToast({
+                        title: res.data.message || '加载文章失败',
+                        icon: 'none'
+                    });
+                }
+            },
+            fail(err) {
+                wx.hideLoading();
+                console.error('加载文章失败:', err);
+                wx.showToast({ title: '网络错误，请重试', icon: 'none' });
+            }
         });
     },
 
@@ -289,14 +362,11 @@ Page({
             title: '发布中'
         });
 
-        // 构建文章数据对象
-        let articleData = null;
-
         // 先上传图片，再提交文章
         this.uploadCoverImage()
             .then(coverUrl => {
                 // 构建文章数据
-                articleData = {
+                const articleData = {
                     title: this.data.title,
                     category_id: this.data.categories[this.data.categoryIndex].id,
                     content: this.data.content,
@@ -309,10 +379,15 @@ Page({
                     title: '提交中...'
                 });
 
-                // 直接调用API并处理响应
+                // 根据是否为编辑模式选择不同的请求
+                const isEditing = this.data.isEditing;
+                const articleId = this.data.articleId;
+                const url = isEditing ? `${api.baseUrl}/articles/${articleId}` : `${api.baseUrl}/articles`;
+                const method = isEditing ? 'PUT' : 'POST';
+
                 wx.request({
-                    url: `${api.baseUrl}/articles`,
-                    method: 'POST',
+                    url: url,
+                    method: method,
                     header: {
                         'content-type': 'application/json',
                         'Authorization': `Bearer ${wx.getStorageSync('token')}`
@@ -321,39 +396,34 @@ Page({
                     success: (res) => {
                         wx.hideLoading();
 
-                        // 检查后端返回的状态码
                         if (res.statusCode === 200 || res.statusCode === 201) {
                             const responseData = res.data;
 
                             if (responseData.success || responseData.code === 201 || responseData.code === 200) {
-                                // 获取文章ID
-                                const articleId = responseData.data?.id;
+                                const targetId = isEditing ? articleId : responseData.data?.id;
 
-                                if (!articleId) {
-                                    console.error('创建成功但无法获取ID:', responseData);
+                                if (!targetId) {
+                                    console.error('操作成功但无法获取ID:', responseData);
                                     wx.showToast({
-                                        title: '文章创建成功但获取ID失败',
+                                        title: '操作成功但获取ID失败',
                                         icon: 'none'
                                     });
                                     return;
                                 }
 
-
                                 // 重置表单
                                 this.resetForm();
 
-                                // 显示成功提示
                                 wx.showToast({
-                                    title: '发布成功',
+                                    title: isEditing ? '更新成功' : '发布成功',
                                     icon: 'success',
                                     mask: true,
                                     duration: 1500
                                 });
                                 wx.redirectTo({
-                                    url: `/pages/news/detail/detail?id=${articleId}`,
+                                    url: `/pages/news/detail/detail?id=${targetId}`,
                                     fail: (err) => {
                                         console.error('跳转失败:', err);
-                                        // 如果跳转失败，回到首页
                                         wx.switchTab({
                                             url: '/pages/index/index'
                                         });
@@ -361,22 +431,20 @@ Page({
                                 });
 
                             } else {
-                                // 业务逻辑错误
                                 this.setData({
                                     isSubmitting: false
                                 });
                                 wx.showToast({
-                                    title: responseData.message || '发布失败',
+                                    title: responseData.message || (isEditing ? '更新失败' : '发布失败'),
                                     icon: 'none'
                                 });
                             }
                         } else {
-                            // HTTP错误
                             this.setData({
                                 isSubmitting: false
                             });
                             wx.showToast({
-                                title: '发布失败，HTTP错误: ' + res.statusCode,
+                                title: (isEditing ? '更新失败' : '发布失败') + '，HTTP错误: ' + res.statusCode,
                                 icon: 'none'
                             });
                         }
@@ -395,7 +463,6 @@ Page({
                 });
             })
             .catch(err => {
-                // 处理图片上传错误
                 wx.hideLoading();
                 this.setData({
                     isSubmitting: false
@@ -406,5 +473,5 @@ Page({
                     icon: 'none'
                 });
             });
-  }
+    }
 })

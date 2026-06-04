@@ -13,6 +13,11 @@
                 <van-tag round type="primary" size="medium" custom-class="category-tag">{{news.category}}</van-tag>
             </view>
         </view>
+        <!-- 管理员操作按钮 -->
+        <view class="admin-actions" wx:if="{{canEdit}}">
+            <van-button size="small" icon="edit" round plain type="info" bindtap="editArticle">编辑</van-button>
+            <van-button size="small" icon="delete-o" round plain type="danger" bindtap="deleteArticle">删除</van-button>
+        </view>
     </view>
 
     <!-- 文章内容 -->

@@ -1,4 +1,4 @@
-<!--pages/publish/publish.wxml-->
+<!--pages/edit-article/edit-article.wxml-->
 <view class="publish-container">
   <!-- 标题输入 -->
   <view class="form-item">
@@ -53,7 +53,6 @@
 
   <!-- 提交按钮 -->
   <view class="btn-area">
-    <button class="submit-btn" bindtap="saveAsDraft">保存草稿</button>
-    <button class="submit-btn publish-btn" bindtap="publishArticle">{{isEditing ? '更新文章' : '发布文章'}}</button>
+    <button class="submit-btn publish-btn" bindtap="publishArticle" loading="{{isSubmitting}}" disabled="{{isSubmitting}}">更新文章</button>
   </view>
 </view>

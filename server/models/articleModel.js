@@ -56,7 +56,7 @@ class ArticleModel {
       // 查询文章列表，使用query方法正确处理LIMIT参数
       const sql = `SELECT 
         a.id, a.title, a.abstract, a.cover_url, a.category_id, a.source,
-        a.author, a.publish_time, a.view_count, a.like_count, a.comment_count,
+        a.author, a.user_id, a.publish_time, a.view_count, a.like_count, a.comment_count,
         a.is_top, c.name as category_name
       FROM articles a
       LEFT JOIN categories c ON a.category_id = c.id
@@ -149,7 +149,7 @@ class ArticleModel {
       const [rows] = await pool.execute(
         `SELECT 
           a.id, a.title, a.abstract, a.content, a.cover_url, a.category_id,
-          a.source, a.author, a.publish_time, a.update_time, a.view_count,
+          a.source, a.author, a.user_id, a.publish_time, a.update_time, a.view_count,
           a.like_count, a.comment_count, a.is_top, c.name as category_name
         FROM articles a
         LEFT JOIN categories c ON a.category_id = c.id

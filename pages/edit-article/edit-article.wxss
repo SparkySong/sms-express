@@ -1,0 +1,2 @@
+/* pages/edit-article/edit-article.wxss */
+@import '../../pages/publish/publish.wxss';

@@ -15,7 +15,8 @@
     "pages/register/register",
     "pages/search/result",
     "pages/profile-edit/profile-edit",
-    "pages/publish/publish"
+    "pages/publish/publish",
+    "pages/edit-article/edit-article"
   ],
   "window": {
     "navigationBarTextStyle": "black",

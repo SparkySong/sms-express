@@ -85,6 +85,15 @@ page {
   border-radius: 4px;
 }
 
+/* 管理员操作按钮 */
+.admin-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1px solid #f0f2f5;
+}
+
 /* 文章内容 */
 .article-content {
   margin-bottom: 40rpx;

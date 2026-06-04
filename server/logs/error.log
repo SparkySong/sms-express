@@ -60,3 +60,16 @@
 2026-06-04 16:42:44 error: 上传图片失败: The OSS Access Key Id you provided does not exist in our records.
 2026-06-04 16:47:17 error: OSS上传文件失败: The OSS Access Key Id you provided does not exist in our records.
 2026-06-04 16:47:17 error: 上传图片失败: The OSS Access Key Id you provided does not exist in our records.
+2026-06-04 17:07:42 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:07:42 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:08:07 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:08:07 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:08:19 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:08:19 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:08:27 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:08:27 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:16:53 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:16:53 error: 获取文章列表失败: 获取文章列表失败: Unknown column 'a.user_id' in 'field list'
+2026-06-04 17:37:54 error: 添加阅读历史失败: 添加阅读历史失败: 文章不存在或已被删除
+2026-06-04 17:38:01 error: 添加阅读历史失败: 添加阅读历史失败: 文章不存在或已被删除
+2026-06-04 17:39:22 error: 添加阅读历史失败: 添加阅读历史失败: 文章不存在或已被删除

@@ -15,7 +15,8 @@ Page({
         newsList: [],
         page: 1,
         limit: 10,
-        hasMoreData: true
+        hasMoreData: true,
+        needRefresh: false // 删除文章后标记需刷新
     },
 
     /**
@@ -287,6 +288,12 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        // 从详情页删除文章后返回，需要刷新
+        if (this.data.needRefresh) {
+            this.setData({ needRefresh: false });
+            this.loadNewsData(true);
+            return;
+        }
         // 检查是否已经加载过数据
         if (this.data.newsList.length === 0) {
             // 如果没有数据，重新加载
@@ -364,12 +371,6 @@ Page({
 
         // 加载对应分类的新闻，强制刷新数据
         this.loadNewsData(true);
-
-        wx.showToast({
-            title: '已切换到' + category,
-            icon: 'none',
-            duration: 1000
-        });
     },
 
     // 原分类切换方法，保留兼容性
@@ -387,12 +388,6 @@ Page({
 
         // 加载对应分类的新闻，强制刷新数据
         this.loadNewsData(true);
-
-        wx.showToast({
-            title: '已切换到' + category,
-            icon: 'none',
-            duration: 1000
-        });
     },
 
     // 查看新闻详情

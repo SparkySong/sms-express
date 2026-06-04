@@ -15,6 +15,7 @@ Page({
       sourceAvatar: '',
       publishTime: '',
       category: '',
+      categoryId: 0,
       coverImage: '',
       content: '',
       sourceLink: '',
@@ -26,14 +27,16 @@ Page({
     isLiked: false,
     isFavorite: false,
     newsId: 0,
-    loading: true, // 加载状态
-    showShare: false, // 是否显示分享面板
-    showCommentsPopup: false, // 是否显示评论面板
-    comments: [], // 评论列表
-    commentContent: '', // 评论内容
-    replyTo: '', // 回复对象的用户名
-    replyCommentId: null, // 回复的评论ID
-    baseUrl: 'http://127.0.0.1:3000/api/v1' // 后端API基础URL
+    loading: true,
+    showShare: false,
+    showCommentsPopup: false,
+    comments: [],
+    commentContent: '',
+    replyTo: '',
+    replyCommentId: null,
+    baseUrl: 'http://127.0.0.1:3000/api/v1',
+    canEdit: false, // 是否有编辑/删除权限
+    isDeleted: false // 文章是否已被删除，避免卸载时保存已删文章的历史记录
   },
 
   /**
@@ -108,6 +111,88 @@ Page({
   },
 
   /**
+   * 检查当前用户是否有编辑/删除权限（文章作者或管理员）
+   */
+  checkEditPermission: function (articleUserId) {
+    const userInfo = wx.getStorageSync('userInfo');
+    if (!userInfo) return false;
+    if (userInfo.role === 'admin') return true;
+    return articleUserId && String(articleUserId) === String(userInfo.id);
+  },
+
+  /**
+   * 编辑文章 - 跳转到独立的编辑页面
+   */
+  editArticle: function () {
+    const news = this.data.news;
+    wx.navigateTo({
+      url: `/pages/edit-article/edit-article?article_id=${news.id}`
+    });
+  },
+
+  /**
+   * 删除文章
+   */
+  deleteArticle: function () {
+    const that = this;
+    const newsId = that.data.newsId;
+
+    wx.showModal({
+      title: '确认删除',
+      content: '删除后文章将不可恢复，确定要删除吗？',
+      confirmColor: '#ee0a24',
+      success(res) {
+        if (res.confirm) {
+          that.doDeleteArticle(newsId);
+        }
+      }
+    });
+  },
+
+  /**
+   * 执行删除文章请求
+   */
+  doDeleteArticle: function (newsId) {
+    const that = this;
+    const token = wx.getStorageSync('token');
+
+    wx.showLoading({ title: '删除中' });
+
+    wx.request({
+      url: `${that.data.baseUrl}/articles/${newsId}`,
+      method: 'DELETE',
+      header: {
+        'Authorization': `Bearer ${token}`
+      },
+      success(res) {
+        wx.hideLoading();
+        if (res.data.success) {
+          that.setData({ isDeleted: true }); // 标记已删除
+          // 通知上一页需要刷新
+          const pages = getCurrentPages();
+          if (pages.length > 1) {
+            pages[pages.length - 2].setData({ needRefresh: true });
+          }
+          wx.showToast({ title: '删除成功', icon: 'success' });
+          setTimeout(() => {
+            wx.navigateBack({ delta: 1 });
+          }, 1500);
+        } else {
+          wx.showToast({
+            title: res.data.message || '删除失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail(err) {
+        wx.hideLoading();
+        console.error('删除文章失败:', err);
+        wx.showToast({ title: '网络错误，请重试', icon: 'none' });
+      }
+    });
+  },
+
+  /**
    * 加载新闻详情
    */
   loadNewsDetail: function (newsId) {
@@ -166,12 +251,14 @@ Page({
             id: articleData.id,
             title: articleData.title,
             source: articleData.source || '简讯速递',
-            sourceAvatar: 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png', // 可替换为真实来源图标
+            sourceAvatar: 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
             publishTime: that.formatDate(articleData.publish_time),
             category: articleData.category_name || '',
+            categoryId: articleData.category_id || 0,
+            userId: articleData.user_id || null,
             coverImage: articleData.cover_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
             content: articleData.content || '',
-            sourceLink: '',  // 可根据需要添加
+            sourceLink: '',
             likes: articleData.like_count || 0,
             comments: articleData.comment_count || 0,
             tags: tags
@@ -180,9 +267,13 @@ Page({
           // 获取用户是否已收藏该文章
           const isFavorite = articleData.is_favorite || false;
           
+          // 检查当前用户是否有编辑/删除权限（传articleUserId，因为此时data.news还没setData）
+          const canEdit = that.checkEditPermission(articleData.user_id);
+          
           that.setData({
             news: news,
             isFavorite: isFavorite,
+            canEdit: canEdit,
             loading: false
           });
           
@@ -354,7 +445,8 @@ Page({
    */
   saveReadHistory: function() {
     const newsId = this.data.newsId;
-    if (!newsId) return;
+    // 文章已删除则跳过保存
+    if (!newsId || this.data.isDeleted) return;
     
     // 尝试调用API保存历史记录
     const token = wx.getStorageSync('token');
