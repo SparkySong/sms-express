@@ -487,8 +487,8 @@ Page({
       return;
     }
     
-    // 根据当前状态决定是点赞还是取消点赞
-    const method = isLiked ? 'DELETE' : 'POST';
+    // 后端 likeArticle 为 toggle 设计，统一使用 POST
+    const method = 'POST';
     const url = `${that.data.baseUrl}/articles/${newsId}/like`;
     
     wx.request({

@@ -102,7 +102,8 @@ class UserController {
           id: user.id,
           username: user.username,
           nickname: user.nickname,
-          avatar_url: user.avatar_url
+          avatar_url: user.avatar_url,
+          role: user.role || 'user'
         }
       }, '登录成功');
     } catch (error) {
@@ -199,7 +200,8 @@ class UserController {
           id: user.id,
           username: user.username,
           nickname: user.nickname,
-          avatar_url: user.avatar_url
+          avatar_url: user.avatar_url,
+          role: user.role || 'user'
         }
       }, '登录成功');
     } catch (error) {

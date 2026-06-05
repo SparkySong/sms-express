@@ -37,8 +37,8 @@ class UserModel {
   async findByUsername(username, withPassword = false) {
     try {
       const fields = withPassword 
-        ? 'id, openid, username, password, nickname, avatar_url, gender, phone, register_time, last_login_time, status' 
-        : 'id, openid, username, nickname, avatar_url, gender, phone, register_time, last_login_time, status';
+        ? 'id, openid, username, password, nickname, avatar_url, gender, phone, register_time, last_login_time, status, role' 
+        : 'id, openid, username, nickname, avatar_url, gender, phone, register_time, last_login_time, status, role';
       
       const [rows] = await pool.execute(
         `SELECT ${fields} FROM users WHERE username = ?`,

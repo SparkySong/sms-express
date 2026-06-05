@@ -21,7 +21,7 @@ const verifyToken = async (req, res, next) => {
     
     // 查询用户是否存在且状态正常
     const [rows] = await pool.execute(
-      'SELECT id, username, status FROM users WHERE id = ?',
+      'SELECT id, username, role, status FROM users WHERE id = ?',
       [decoded.id]
     );
     
@@ -38,7 +38,8 @@ const verifyToken = async (req, res, next) => {
     // 将用户信息添加到请求对象中
     req.user = {
       id: rows[0].id,
-      username: rows[0].username
+      username: rows[0].username,
+      role: rows[0].role || 'user'
     };
     
     // 继续处理请求
@@ -76,7 +77,7 @@ const optionalAuth = async (req, res, next) => {
       
       // 查询用户是否存在且状态正常
       const [rows] = await pool.execute(
-        'SELECT id, username, status FROM users WHERE id = ?',
+        'SELECT id, username, role, status FROM users WHERE id = ?',
         [decoded.id]
       );
       
@@ -85,7 +86,8 @@ const optionalAuth = async (req, res, next) => {
         // 将用户信息添加到请求对象中
         req.user = {
           id: rows[0].id,
-          username: rows[0].username
+          username: rows[0].username,
+          role: rows[0].role || 'user'
         };
       }
     } catch (error) {

@@ -5,6 +5,7 @@ const { testConnection } = require('./utils/db');
 const config = require('./config/config');
 const routes = require('./routes');
 const logger = require('./utils/logger');
+const { initAdmin } = require('./utils/initAdmin');
 
 // 创建Express应用
 const app = express();
@@ -62,6 +63,9 @@ testConnection()
     app.listen(PORT, () => {
       logger.info(`服务器运行在 http://localhost:${PORT}`);
       logger.info(`环境: ${config.server.env}`);
+
+      // 初始化管理员账号
+      initAdmin();
     });
   })
   .catch((err) => {

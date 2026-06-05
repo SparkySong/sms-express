@@ -81,6 +81,7 @@ Page({
             username: userData.user.username,
             nickName: userData.user.nickname,
             avatarUrl: userData.user.avatar_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
+            role: userData.user.role || 'user',
             isLogin: true,
             loginType: 'account'
           });
@@ -178,6 +179,7 @@ Page({
             username: userData.user.username,
             nickName: userData.user.nickname,
             avatarUrl: userData.user.avatar_url || userInfo.avatarUrl,
+            role: userData.user.role || 'user',
             isLogin: true,
             loginType: 'wechat'
           });
