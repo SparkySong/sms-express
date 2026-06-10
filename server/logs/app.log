@@ -1332,3 +1332,454 @@
 2026-06-04 17:53:38 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
 2026-06-04 17:53:38 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
 2026-06-04 17:53:38 info: GET /api/v1/articles/random?exclude_id=23&limit=5
+2026-06-04 17:53:45 info: POST /api/v1/history
+2026-06-04 17:53:46 info: GET /api/v1/categories/hot
+2026-06-04 17:53:46 info: GET /api/v1/categories
+2026-06-04 17:53:46 info: GET /api/v1/articles/categories/count
+2026-06-04 17:53:47 info: GET /api/v1/categories/1/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-04 17:53:47 info: 获取分类文章请求参数: categoryId=1, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-04 17:53:47 info: 分类(1)文章查询结果: 总数=4, 返回=4, 关键词=无
+2026-06-04 17:53:51 info: GET /api/v1/articles/23
+2026-06-04 17:53:51 info: GET /api/v1/favorites/check/23
+2026-06-04 17:53:51 info: GET /api/v1/articles/23/like/check
+2026-06-04 17:53:51 info: GET /api/v1/articles/random?exclude_id=23&limit=5
+2026-06-04 17:53:54 info: DELETE /api/v1/articles/23
+2026-06-04 17:53:59 info: GET /api/v1/categories/1/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-04 17:53:59 info: 获取分类文章请求参数: categoryId=1, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-04 17:53:59 info: 分类(1)文章查询结果: 总数=3, 返回=3, 关键词=无
+2026-06-04 17:54:05 info: GET /api/v1/categories
+2026-06-04 17:54:05 info: GET /api/v1/categories/hot
+2026-06-04 17:54:05 info: GET /api/v1/articles/categories/count
+2026-06-04 17:54:07 info: GET /api/v1/categories/1/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-04 17:54:07 info: 获取分类文章请求参数: categoryId=1, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-04 17:54:07 info: 分类(1)文章查询结果: 总数=3, 返回=3, 关键词=无
+2026-06-04 17:55:22 info: GET /api/v1/status
+2026-06-04 17:55:23 info: GET /api/v1/categories/hot
+2026-06-04 17:55:23 info: GET /api/v1/articles/headlines?limit=5
+2026-06-04 17:55:23 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-04 17:55:23 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-04 17:57:46 info: GET /api/v1/status
+2026-06-04 17:57:47 info: GET /api/v1/categories/hot
+2026-06-04 17:57:47 info: GET /api/v1/articles/headlines?limit=5
+2026-06-04 17:57:47 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-04 17:57:47 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-04 17:58:27 info: GET /api/v1/categories
+2026-06-04 17:58:27 info: GET /api/v1/categories/hot
+2026-06-04 17:58:27 info: GET /api/v1/articles/categories/count
+2026-06-04 17:58:29 info: GET /api/v1/categories/1/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-04 17:58:29 info: 获取分类文章请求参数: categoryId=1, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-04 17:58:29 info: 分类(1)文章查询结果: 总数=3, 返回=3, 关键词=无
+2026-06-04 17:58:33 info: GET /api/v1/favorites/check/17
+2026-06-04 17:58:33 info: GET /api/v1/articles/17
+2026-06-04 17:58:33 info: GET /api/v1/articles/17/like/check
+2026-06-04 17:58:34 info: GET /api/v1/articles/random?exclude_id=17&limit=5
+2026-06-04 17:58:35 info: GET /api/v1/articles/random?exclude_ids=17%2C2%2C9%2C5%2C4%2C3&limit=5
+2026-06-04 17:59:01 info: POST /api/v1/history
+2026-06-04 17:59:02 info: GET /api/v1/articles/16
+2026-06-04 17:59:02 info: GET /api/v1/favorites/check/16
+2026-06-04 17:59:02 info: GET /api/v1/articles/16/like/check
+2026-06-04 17:59:02 info: GET /api/v1/articles/random?exclude_id=16&limit=5
+2026-06-04 17:59:04 info: GET /api/v1/articles/random?exclude_ids=16%2C12%2C7%2C3%2C5%2C14&limit=5
+2026-06-04 17:59:15 info: POST /api/v1/history
+2026-06-04 17:59:16 info: GET /api/v1/articles/16
+2026-06-04 17:59:16 info: GET /api/v1/favorites/check/16
+2026-06-04 17:59:16 info: GET /api/v1/articles/16/like/check
+2026-06-04 17:59:16 info: GET /api/v1/articles/random?exclude_id=16&limit=5
+2026-06-04 17:59:23 info: GET /api/v1/status
+2026-06-04 17:59:23 info: GET /api/v1/categories/hot
+2026-06-04 17:59:23 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-04 17:59:23 info: GET /api/v1/articles/headlines?limit=5
+2026-06-04 17:59:24 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-04 17:59:25 info: GET /api/v1/categories
+2026-06-04 17:59:25 info: GET /api/v1/categories/hot
+2026-06-04 17:59:25 info: GET /api/v1/articles/categories/count
+2026-06-04 17:59:27 info: GET /api/v1/categories/1/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-04 17:59:27 info: 获取分类文章请求参数: categoryId=1, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-04 17:59:27 info: 分类(1)文章查询结果: 总数=3, 返回=3, 关键词=无
+2026-06-04 17:59:29 info: GET /api/v1/articles/16
+2026-06-04 17:59:29 info: GET /api/v1/favorites/check/16
+2026-06-04 17:59:29 info: GET /api/v1/articles/16/like/check
+2026-06-04 17:59:29 info: GET /api/v1/articles/random?exclude_id=16&limit=5
+2026-06-04 17:59:31 info: POST /api/v1/history
+2026-06-04 17:59:32 info: GET /api/v1/articles/16
+2026-06-04 17:59:32 info: GET /api/v1/favorites/check/16
+2026-06-04 17:59:32 info: GET /api/v1/articles/16/like/check
+2026-06-04 17:59:33 info: GET /api/v1/articles/random?exclude_id=16&limit=5
+2026-06-04 17:59:35 info: GET /api/v1/categories
+2026-06-04 17:59:35 info: GET /api/v1/articles/16
+2026-06-04 18:01:47 info: GET /api/v1/favorites/check/16
+2026-06-04 18:01:47 info: GET /api/v1/articles/16/like/check
+2026-06-04 18:01:48 info: POST /api/v1/history
+2026-06-04 18:01:49 info: GET /api/v1/categories/1/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-04 18:01:49 info: 获取分类文章请求参数: categoryId=1, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-04 18:01:49 info: 分类(1)文章查询结果: 总数=4, 返回=4, 关键词=无
+2026-06-04 18:01:51 info: GET /api/v1/articles/18
+2026-06-04 18:01:51 info: GET /api/v1/articles/18/like/check
+2026-06-04 18:01:51 info: GET /api/v1/favorites/check/18
+2026-06-04 18:01:51 info: GET /api/v1/articles/random?exclude_id=18&limit=5
+2026-06-04 18:01:55 info: POST /api/v1/history
+2026-06-04 18:01:57 info: GET /api/v1/articles/18
+2026-06-04 18:01:57 info: GET /api/v1/favorites/check/18
+2026-06-04 18:01:57 info: GET /api/v1/articles/18/like/check
+2026-06-04 18:01:57 info: GET /api/v1/articles/random?exclude_id=18&limit=5
+2026-06-04 18:02:02 info: DELETE /api/v1/articles/18/like
+2026-06-04 18:03:39 info: POST /api/v1/history
+2026-06-04 18:03:39 info: GET /api/v1/articles/18
+2026-06-04 18:03:39 info: GET /api/v1/favorites/check/18
+2026-06-04 18:03:39 info: GET /api/v1/articles/18/like/check
+2026-06-04 18:03:39 info: GET /api/v1/articles/random?exclude_id=18&limit=5
+2026-06-04 18:03:43 info: POST /api/v1/history
+2026-06-04 18:03:47 info: GET /api/v1/articles/17
+2026-06-04 18:03:47 info: GET /api/v1/favorites/check/17
+2026-06-04 18:03:47 info: GET /api/v1/articles/17/like/check
+2026-06-04 18:03:47 info: GET /api/v1/articles/random?exclude_id=17&limit=5
+2026-06-04 18:03:48 info: POST /api/v1/articles/17/like
+2026-06-04 18:03:49 info: POST /api/v1/articles/17/like
+2026-06-04 18:03:50 info: POST /api/v1/articles/17/like
+2026-06-04 18:03:50 info: POST /api/v1/articles/17/like
+2026-06-05 08:33:33 info: GET /api/v1/status
+2026-06-05 08:33:33 info: GET /api/v1/categories/hot
+2026-06-05 08:33:33 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 08:33:33 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 08:33:33 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 08:33:36 info: GET /api/v1/articles?page=1&limit=10&sort=view_count&order=desc
+2026-06-05 08:33:37 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 08:33:39 info: GET /api/v1/articles?page=2&limit=10&sort=publish_time&order=desc
+2026-06-05 09:44:20 info: GET /api/v1/categories
+2026-06-05 09:44:20 info: GET /api/v1/categories/hot
+2026-06-05 09:44:20 info: GET /api/v1/articles/categories/count
+2026-06-05 09:44:24 info: GET /api/v1/categories
+2026-06-05 09:44:24 info: GET /api/v1/categories/hot
+2026-06-05 09:44:24 info: GET /api/v1/articles/categories/count
+2026-06-05 09:44:28 info: GET /api/v1/categories/9/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-05 09:44:28 info: 获取分类文章请求参数: categoryId=9, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-05 09:44:28 info: 分类(9)文章查询结果: 总数=1, 返回=1, 关键词=无
+2026-06-05 09:44:31 info: GET /api/v1/users/profile
+2026-06-05 09:44:31 info: GET /api/v1/users/profile
+2026-06-05 09:44:31 info: GET /api/v1/users/stats
+2026-06-05 09:44:31 info: GET /api/v1/users/stats
+2026-06-05 09:46:59 info: 数据库连接成功
+2026-06-05 09:46:59 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:46:59 info: 环境: development
+2026-06-05 09:47:10 info: 数据库连接成功
+2026-06-05 09:47:10 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:47:10 info: 环境: development
+2026-06-05 09:47:10 info: 检测到 users 表缺少 role 字段，正在添加...
+2026-06-05 09:47:10 info: role 字段添加成功，重新初始化管理员账号...
+2026-06-05 09:47:10 info: 管理员账号初始化成功！用户名: admin，密码: admin123
+2026-06-05 09:47:10 info: ⚠️  请尽快登录后修改默认密码！
+2026-06-05 09:47:13 info: GET /api/v1/status
+2026-06-05 09:47:14 info: GET /api/v1/categories/hot
+2026-06-05 09:47:14 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:47:14 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:47:14 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:48:20 info: GET /api/v1/status
+2026-06-05 09:48:20 info: GET /api/v1/categories/hot
+2026-06-05 09:48:20 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:48:20 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:48:20 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:48:39 info: 数据库连接成功
+2026-06-05 09:48:39 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:48:39 info: 环境: development
+2026-06-05 09:48:39 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:49:05 info: GET /api/v1/users/profile
+2026-06-05 09:49:05 info: GET /api/v1/users/profile
+2026-06-05 09:49:05 info: GET /api/v1/users/stats
+2026-06-05 09:49:05 info: GET /api/v1/users/stats
+2026-06-05 09:49:18 info: POST /api/v1/users/login
+2026-06-05 09:49:20 info: GET /api/v1/users/profile
+2026-06-05 09:49:20 info: GET /api/v1/users/stats
+2026-06-05 09:49:27 info: GET /api/v1/articles/12
+2026-06-05 09:49:27 info: GET /api/v1/favorites/check/12
+2026-06-05 09:49:27 info: GET /api/v1/articles/12/like/check
+2026-06-05 09:49:27 info: GET /api/v1/articles/random?exclude_id=12&limit=5
+2026-06-05 09:49:28 info: GET /api/v1/articles/random?exclude_ids=12%2C1%2C3%2C9%2C15%2C14&limit=5
+2026-06-05 09:49:31 info: POST /api/v1/history
+2026-06-05 09:49:33 info: GET /api/v1/categories
+2026-06-05 09:49:33 info: GET /api/v1/articles/categories/count
+2026-06-05 09:49:33 info: GET /api/v1/categories/hot
+2026-06-05 09:49:35 info: GET /api/v1/categories/2/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-05 09:49:35 info: 获取分类文章请求参数: categoryId=2, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-05 09:49:35 info: 分类(2)文章查询结果: 总数=1, 返回=1, 关键词=无
+2026-06-05 09:49:38 info: GET /api/v1/articles/12
+2026-06-05 09:49:38 info: GET /api/v1/favorites/check/12
+2026-06-05 09:49:38 info: GET /api/v1/articles/12/like/check
+2026-06-05 09:49:38 info: GET /api/v1/articles/random?exclude_id=12&limit=5
+2026-06-05 09:49:39 info: GET /api/v1/articles/random?exclude_ids=12%2C11%2C9%2C17%2C13%2C14&limit=5
+2026-06-05 09:49:40 info: POST /api/v1/history
+2026-06-05 09:50:25 info: 数据库连接成功
+2026-06-05 09:50:25 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:50:25 info: 环境: development
+2026-06-05 09:50:25 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:50:30 info: 数据库连接成功
+2026-06-05 09:50:30 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:50:30 info: 环境: development
+2026-06-05 09:50:30 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:50:33 info: GET /api/v1/status
+2026-06-05 09:50:35 info: GET /api/v1/categories/hot
+2026-06-05 09:50:35 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:50:35 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:50:35 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:50:40 info: 数据库连接成功
+2026-06-05 09:50:40 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:50:40 info: 环境: development
+2026-06-05 09:50:40 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:50:52 info: 数据库连接成功
+2026-06-05 09:50:52 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:50:52 info: 环境: development
+2026-06-05 09:50:52 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:50:56 info: GET /api/v1/status
+2026-06-05 09:50:57 info: GET /api/v1/categories/hot
+2026-06-05 09:50:57 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:50:57 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:50:57 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:52:58 info: 数据库连接成功
+2026-06-05 09:52:58 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:52:58 info: 环境: development
+2026-06-05 09:52:58 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:52:59 info: GET /api/v1/status
+2026-06-05 09:52:59 info: GET /api/v1/categories/hot
+2026-06-05 09:52:59 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:52:59 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:52:59 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:53:01 info: GET /api/v1/articles/12
+2026-06-05 09:53:01 info: GET /api/v1/favorites/check/12
+2026-06-05 09:53:01 info: GET /api/v1/articles/12/like/check
+2026-06-05 09:53:01 info: GET /api/v1/articles/random?exclude_id=12&limit=5
+2026-06-05 09:53:03 info: GET /api/v1/articles/random?exclude_ids=12%2C3%2C15%2C6%2C10%2C2&limit=5
+2026-06-05 09:53:05 info: 数据库连接成功
+2026-06-05 09:53:05 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:53:05 info: 环境: development
+2026-06-05 09:53:05 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:53:37 info: GET /api/v1/status
+2026-06-05 09:53:37 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:53:37 info: GET /api/v1/categories/hot
+2026-06-05 09:53:37 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:53:37 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:53:39 info: GET /api/v1/articles/12
+2026-06-05 09:53:39 info: GET /api/v1/favorites/check/12
+2026-06-05 09:53:39 info: GET /api/v1/articles/12/like/check
+2026-06-05 09:53:39 info: GET /api/v1/articles/random?exclude_id=12&limit=5
+2026-06-05 09:53:40 info: GET /api/v1/articles/random?exclude_ids=12%2C15%2C6%2C3%2C7%2C13&limit=5
+2026-06-05 09:53:43 info: POST /api/v1/history
+2026-06-05 09:53:54 info: 数据库连接成功
+2026-06-05 09:53:54 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:53:54 info: 环境: development
+2026-06-05 09:53:54 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:54:05 info: GET /api/v1/status
+2026-06-05 09:54:05 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:54:05 info: GET /api/v1/categories/hot
+2026-06-05 09:54:05 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:54:06 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:54:11 info: GET /api/v1/articles/11
+2026-06-05 09:54:11 info: GET /api/v1/favorites/check/11
+2026-06-05 09:54:11 info: GET /api/v1/articles/11/like/check
+2026-06-05 09:54:11 info: GET /api/v1/articles/random?exclude_id=11&limit=5
+2026-06-05 09:54:13 info: GET /api/v1/articles/random?exclude_ids=11%2C6%2C12%2C9%2C2%2C14&limit=5
+2026-06-05 09:54:18 info: POST /api/v1/history
+2026-06-05 09:54:19 info: GET /api/v1/users/profile
+2026-06-05 09:54:19 info: GET /api/v1/users/profile
+2026-06-05 09:54:19 info: GET /api/v1/users/stats
+2026-06-05 09:54:19 info: GET /api/v1/users/stats
+2026-06-05 09:54:22 info: GET /api/v1/users/profile
+2026-06-05 09:54:31 info: POST /api/v1/users/avatar/upload
+2026-06-05 09:54:31 info: 头像上传成功: http://127.0.0.1:3000/uploads/1780624471380-534529309.jpg
+2026-06-05 09:54:34 info: GET /api/v1/status
+2026-06-05 09:54:34 info: GET /api/v1/categories/hot
+2026-06-05 09:54:34 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:54:34 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:54:34 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:54:36 info: GET /api/v1/users/profile
+2026-06-05 09:54:36 info: GET /api/v1/users/profile
+2026-06-05 09:54:36 info: GET /api/v1/users/stats
+2026-06-05 09:54:36 info: GET /api/v1/users/stats
+2026-06-05 09:54:38 info: GET /api/v1/users/profile
+2026-06-05 09:54:46 info: PUT /api/v1/users/profile
+2026-06-05 09:54:48 info: GET /api/v1/users/profile
+2026-06-05 09:54:48 info: GET /api/v1/users/stats
+2026-06-05 09:54:57 info: GET /api/v1/articles/12
+2026-06-05 09:54:57 info: GET /api/v1/favorites/check/12
+2026-06-05 09:54:57 info: GET /api/v1/articles/12/like/check
+2026-06-05 09:54:57 info: GET /api/v1/articles/random?exclude_id=12&limit=5
+2026-06-05 09:55:49 info: 数据库连接成功
+2026-06-05 09:55:49 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:55:49 info: 环境: development
+2026-06-05 09:55:49 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:55:52 info: GET /api/v1/status
+2026-06-05 09:55:53 info: GET /api/v1/categories/hot
+2026-06-05 09:55:53 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:55:53 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:55:53 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:55:55 info: 数据库连接成功
+2026-06-05 09:55:55 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:55:55 info: 环境: development
+2026-06-05 09:55:55 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:56:02 info: 数据库连接成功
+2026-06-05 09:56:02 info: 服务器运行在 http://localhost:3000
+2026-06-05 09:56:02 info: 环境: development
+2026-06-05 09:56:02 info: 管理员账号已存在，跳过初始化
+2026-06-05 09:56:02 info: GET /api/v1/status
+2026-06-05 09:56:02 info: GET /api/v1/categories/hot
+2026-06-05 09:56:02 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:56:02 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:56:02 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:56:04 info: GET /api/v1/categories
+2026-06-05 09:56:33 info: GET /api/v1/status
+2026-06-05 09:56:34 info: GET /api/v1/categories/hot
+2026-06-05 09:56:34 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:56:34 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:56:34 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:56:41 info: GET /api/v1/status
+2026-06-05 09:56:42 info: GET /api/v1/categories/hot
+2026-06-05 09:56:42 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:56:42 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:56:42 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:57:44 info: GET /api/v1/articles/11
+2026-06-05 09:57:44 info: GET /api/v1/favorites/check/11
+2026-06-05 09:57:44 info: GET /api/v1/articles/11/like/check
+2026-06-05 09:57:44 info: GET /api/v1/articles/random?exclude_id=11&limit=5
+2026-06-05 09:57:47 info: POST /api/v1/history
+2026-06-05 09:57:48 info: GET /api/v1/users/profile
+2026-06-05 09:57:48 info: GET /api/v1/users/profile
+2026-06-05 09:57:48 info: GET /api/v1/users/stats
+2026-06-05 09:57:48 info: GET /api/v1/users/stats
+2026-06-05 09:58:06 info: POST /api/v1/users/login
+2026-06-05 09:58:12 info: POST /api/v1/users/login
+2026-06-05 09:58:14 info: GET /api/v1/users/profile
+2026-06-05 09:58:14 info: GET /api/v1/users/stats
+2026-06-05 09:58:17 info: GET /api/v1/articles/12
+2026-06-05 09:58:17 info: GET /api/v1/favorites/check/12
+2026-06-05 09:58:17 info: GET /api/v1/articles/12/like/check
+2026-06-05 09:58:17 info: GET /api/v1/articles/random?exclude_id=12&limit=5
+2026-06-05 09:58:20 info: GET /api/v1/categories
+2026-06-05 09:58:20 info: GET /api/v1/articles/12
+2026-06-05 09:58:22 info: GET /api/v1/favorites/check/12
+2026-06-05 09:58:22 info: GET /api/v1/articles/12/like/check
+2026-06-05 09:58:23 info: GET /api/v1/articles/random?exclude_ids=12%2C9%2C14%2C5%2C17%2C18&limit=5
+2026-06-05 09:58:28 info: GET /api/v1/favorites/check/17
+2026-06-05 09:58:28 info: GET /api/v1/articles/17
+2026-06-05 09:58:28 info: GET /api/v1/articles/17/like/check
+2026-06-05 09:58:28 info: GET /api/v1/articles/random?exclude_id=17&limit=5
+2026-06-05 09:58:31 info: GET /api/v1/categories
+2026-06-05 09:58:31 info: GET /api/v1/articles/17
+2026-06-05 09:58:39 info: POST /api/v1/upload/image
+2026-06-05 09:58:39 info: 图片上传成功: http://127.0.0.1:3000/uploads/1780624719421-724863448.png
+2026-06-05 09:58:39 info: PUT /api/v1/articles/17
+2026-06-05 09:58:41 info: GET /api/v1/status
+2026-06-05 09:58:41 info: GET /api/v1/categories/hot
+2026-06-05 09:58:41 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 09:58:41 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:58:41 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 09:58:43 info: GET /api/v1/articles?page=2&limit=10&sort=publish_time&order=desc
+2026-06-05 09:58:53 info: GET /api/v1/categories
+2026-06-05 09:58:53 info: GET /api/v1/categories/hot
+2026-06-05 09:58:53 info: GET /api/v1/articles/categories/count
+2026-06-05 09:58:57 info: GET /api/v1/favorites?page=1&limit=10
+2026-06-05 09:58:57 info: GET /api/v1/favorites?page=1&limit=10
+2026-06-05 09:58:58 info: GET /api/v1/users/profile
+2026-06-05 09:58:58 info: GET /api/v1/users/profile
+2026-06-05 09:58:58 info: GET /api/v1/users/stats
+2026-06-05 09:58:58 info: GET /api/v1/users/stats
+2026-06-05 09:59:00 info: GET /api/v1/favorites?page=1&limit=10
+2026-06-05 09:59:06 info: GET /api/v1/articles?page=1&limit=10&category_id=2&sort=publish_time&order=desc
+2026-06-05 09:59:07 info: GET /api/v1/articles?page=1&limit=10&category_id=3&sort=publish_time&order=desc
+2026-06-05 09:59:08 info: GET /api/v1/articles?page=1&limit=10&category_id=6&sort=publish_time&order=desc
+2026-06-05 09:59:08 info: GET /api/v1/articles?page=1&limit=10&category_id=8&sort=publish_time&order=desc
+2026-06-05 09:59:09 info: GET /api/v1/articles?page=1&limit=10&category_id=10&sort=publish_time&order=desc
+2026-06-05 10:15:13 info: GET /api/v1/status
+2026-06-05 10:15:15 info: GET /api/v1/categories/hot
+2026-06-05 10:15:15 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 10:15:15 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 10:15:15 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 10:17:05 info: GET /api/v1/status
+2026-06-05 10:17:07 info: GET /api/v1/categories/hot
+2026-06-05 10:17:07 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 10:17:07 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 10:17:07 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 11:13:24 info: GET /api/v1/categories
+2026-06-05 11:13:24 info: GET /api/v1/categories/hot
+2026-06-05 11:13:24 info: GET /api/v1/articles/categories/count
+2026-06-05 11:13:46 info: GET /api/v1/status
+2026-06-05 11:13:46 info: GET /api/v1/articles/headlines?limit=5
+2026-06-05 11:13:46 info: GET /api/v1/categories/hot
+2026-06-05 11:13:46 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 11:13:46 info: GET /api/v1/articles?page=1&limit=10&sort=publish_time&order=desc
+2026-06-05 11:13:47 info: GET /api/v1/categories
+2026-06-05 11:13:47 info: GET /api/v1/categories/hot
+2026-06-05 11:13:47 info: GET /api/v1/articles/categories/count
+2026-06-05 11:13:49 info: GET /api/v1/categories
+2026-06-05 11:13:50 info: GET /api/v1/favorites?page=1&limit=10
+2026-06-05 11:13:50 info: GET /api/v1/favorites?page=1&limit=10
+2026-06-05 11:22:42 info: GET /api/v1/users/profile
+2026-06-05 11:22:42 info: GET /api/v1/users/profile
+2026-06-05 11:22:42 info: GET /api/v1/users/stats
+2026-06-05 11:22:42 info: GET /api/v1/users/stats
+2026-06-05 11:22:45 info: GET /api/v1/categories/1/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-05 11:22:45 info: 获取分类文章请求参数: categoryId=1, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-05 11:22:45 info: 分类(1)文章查询结果: 总数=4, 返回=4, 关键词=无
+2026-06-05 11:22:48 info: GET /api/v1/articles/18
+2026-06-05 11:22:48 info: GET /api/v1/favorites/check/18
+2026-06-05 11:22:48 info: GET /api/v1/articles/18/like/check
+2026-06-05 11:22:48 info: GET /api/v1/articles/random?exclude_id=18&limit=5
+2026-06-05 11:22:51 info: POST /api/v1/articles/18/like
+2026-06-05 11:22:52 info: POST /api/v1/history
+2026-06-05 11:22:54 info: GET /api/v1/favorites?page=1&limit=10
+2026-06-05 11:22:56 info: GET /api/v1/favorites?page=1&limit=10
+2026-06-05 11:22:58 info: GET /api/v1/favorites?page=1&limit=10
+2026-06-05 11:22:58 info: GET /api/v1/users/profile
+2026-06-05 11:22:58 info: GET /api/v1/users/stats
+2026-06-05 11:23:10 info: GET /api/v1/categories/1/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-05 11:23:10 info: 获取分类文章请求参数: categoryId=1, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-05 11:23:10 info: 分类(1)文章查询结果: 总数=4, 返回=4, 关键词=无
+2026-06-05 11:23:11 info: GET /api/v1/articles/18
+2026-06-05 11:23:11 info: GET /api/v1/articles/18/like/check
+2026-06-05 11:23:11 info: GET /api/v1/favorites/check/18
+2026-06-05 11:23:11 info: GET /api/v1/articles/random?exclude_id=18&limit=5
+2026-06-05 11:23:14 info: POST /api/v1/articles/18/like
+2026-06-05 11:23:16 info: POST /api/v1/articles/18/like
+2026-06-05 11:23:20 info: POST /api/v1/favorites
+2026-06-05 11:23:22 info: POST /api/v1/history
+2026-06-05 11:23:24 info: GET /api/v1/favorites?page=1&limit=10
+2026-06-05 11:23:38 info: DELETE /api/v1/favorites/18
+2026-06-05 11:23:41 info: GET /api/v1/categories/1/articles?page=1&pageSize=10&sortBy=publish_time&order=desc
+2026-06-05 11:23:41 info: 获取分类文章请求参数: categoryId=1, page=1, pageSize=10, sortBy=publish_time, order=desc, keyword=无
+2026-06-05 11:23:41 info: 分类(1)文章查询结果: 总数=4, 返回=4, 关键词=无
+2026-06-05 11:23:43 info: GET /api/v1/articles/18
+2026-06-05 11:23:43 info: GET /api/v1/favorites/check/18
+2026-06-05 11:23:43 info: GET /api/v1/articles/18/like/check
+2026-06-05 11:23:43 info: GET /api/v1/articles/random?exclude_id=18&limit=5
+2026-06-05 11:24:57 info: GET /api/v1/categories
+2026-06-05 11:24:57 info: GET /api/v1/articles/18
+2026-06-05 11:25:02 info: GET /api/v1/favorites/check/18
+2026-06-05 11:25:02 info: GET /api/v1/articles/18/like/check
+2026-06-05 11:25:04 info: POST /api/v1/history
+2026-06-06 08:36:53 info: GET /
+2026-06-06 08:36:53 info: GET /favicon.ico
+2026-06-06 08:37:25 info: GET /
+2026-06-06 08:37:25 info: GET /
+2026-06-06 08:37:25 info: GET /favicon.ico
+2026-06-06 08:37:29 info: GET /
+2026-06-06 08:45:42 info: GET /
+2026-06-06 08:45:42 info: GET /
+2026-06-06 08:45:56 info: GET /
+2026-06-06 08:46:01 info: GET /
+2026-06-06 08:46:13 info: GET /
+2026-06-06 08:46:13 info: GET /
+2026-06-06 08:46:14 info: GET /
+2026-06-06 08:46:14 info: GET /
+2026-06-06 08:46:24 info: GET /
+2026-06-06 08:46:25 info: GET /
+2026-06-06 08:46:25 info: GET /
+2026-06-06 08:46:26 info: GET /
+2026-06-06 08:46:26 info: GET /
+2026-06-06 08:46:26 info: GET /
+2026-06-06 08:46:27 info: GET /
+2026-06-06 08:46:27 info: GET /
+2026-06-06 08:46:27 info: GET /
+2026-06-06 08:46:30 info: GET /
+2026-06-06 08:56:06 info: GET /
+2026-06-06 08:56:06 info: GET /
+2026-06-06 08:56:06 info: GET /
+2026-06-06 08:56:06 info: GET /
+2026-06-06 08:56:28 info: GET /
+2026-06-06 08:56:28 info: GET /
