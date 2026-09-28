@@ -16,13 +16,13 @@ router.get('/', historyController.getUserHistory);
 // 添加阅读历史
 router.post('/', historyController.addHistory);
 
-// 删除单条阅读历史
-router.delete('/:history_id', historyController.removeHistory);
+// 清空所有阅读历史（静态路由必须先于 /:history_id 注册，否则会被参数路由截获）
+router.delete('/all', historyController.clearUserHistory);
 
 // 批量删除阅读历史
 router.post('/batch-delete', historyController.removeMultiHistory);
 
-// 清空所有阅读历史
-router.delete('/all', historyController.clearUserHistory);
+// 删除单条阅读历史
+router.delete('/:history_id', historyController.removeHistory);
 
 module.exports = router; 

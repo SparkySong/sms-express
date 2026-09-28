@@ -15,7 +15,7 @@ router.get('/hot', articleController.getHotArticles);
 router.get('/random', articleController.getRandomArticles);
 router.get('/categories/count', articleController.getCategoriesCount);
 router.get('/:id', optionalAuth, articleController.getArticleDetail);
-router.get('/:articleId/comments', commentController.getArticleComments);
+router.get('/:articleId/comments', optionalAuth, commentController.getArticleComments);
 
 // 需要认证的路由
 router.post('/:id/like', verifyToken, articleController.likeArticle);
