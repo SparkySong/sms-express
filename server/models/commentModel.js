@@ -1,5 +1,6 @@
 const { pool } = require('../config/db');
 const logger = require('../utils/logger');
+const notificationModel = require('./notificationModel');
 
 /**
  * 评论模型类
@@ -122,22 +123,25 @@ class CommentModel {
       
       // 获取新增评论的完整信息
       const [comments] = await pool.execute(
-        `SELECT 
-          c.id, 
-          c.content, 
-          c.like_count, 
-          c.create_time, 
+        `SELECT
+          c.id,
+          c.content,
+          c.like_count,
+          c.create_time,
           c.parent_id,
           c.user_id,
-          u.username as user_name, 
-          u.nickname, 
+          u.username as user_name,
+          u.nickname,
           u.avatar_url
         FROM comments c
         LEFT JOIN users u ON c.user_id = u.id
         WHERE c.id = ?`,
         [commentId]
       );
-      
+
+      // 通知闭环：提醒文章作者与被回复者（失败不影响评论主流程）
+      await this._notifyCommentInteraction(commentData);
+
       return comments[0];
     } catch (error) {
       await connection.rollback();
@@ -145,6 +149,60 @@ class CommentModel {
       throw new Error(`创建评论失败: ${error.message}`);
     } finally {
       connection.release();
+    }
+  }
+
+  /**
+   * 评论/回复互动通知（内部使用，通知失败仅记录日志不影响主流程）
+   * @param {Object} commentData - 评论数据
+   */
+  async _notifyCommentInteraction(commentData) {
+    try {
+      const [users] = await pool.execute(
+        'SELECT nickname, username FROM users WHERE id = ?',
+        [commentData.user_id]
+      );
+      const commenter = users[0]?.nickname || users[0]?.username || '有人';
+
+      const [articles] = await pool.execute(
+        'SELECT user_id, title FROM articles WHERE id = ?',
+        [commentData.article_id]
+      );
+      const article = articles[0];
+
+      const notified = new Set();
+
+      // 通知文章作者（评论者评论自己的文章时跳过）
+      if (article && article.user_id && article.user_id !== commentData.user_id) {
+        await notificationModel.addNotification({
+          title: '新的评论',
+          content: `${commenter} 评论了你的文章《${article.title}》`,
+          type: 2,
+          userId: article.user_id
+        });
+        notified.add(article.user_id);
+      }
+
+      // 回复时额外通知被回复者（与文章作者重复或回复自己时跳过）
+      if (commentData.parent_id) {
+        const [parents] = await pool.execute(
+          'SELECT user_id FROM comments WHERE id = ?',
+          [commentData.parent_id]
+        );
+        const parent = parents[0];
+        if (parent && parent.user_id &&
+            parent.user_id !== commentData.user_id &&
+            !notified.has(parent.user_id)) {
+          await notificationModel.addNotification({
+            title: '新的回复',
+            content: `${commenter} 回复了你的评论`,
+            type: 2,
+            userId: parent.user_id
+          });
+        }
+      }
+    } catch (error) {
+      logger.error(`评论通知发送失败: ${error.message}`);
     }
   }
 
@@ -195,13 +253,42 @@ class CommentModel {
       }
       
       await connection.commit();
-      
+
+      // 通知闭环：点赞成功时提醒评论作者（失败不影响点赞主流程）
+      if (liked) {
+        try {
+          const [targets] = await pool.execute(
+            `SELECT c.user_id AS comment_user_id, a.title AS article_title
+             FROM comments c
+             JOIN articles a ON c.article_id = a.id
+             WHERE c.id = ?`,
+            [commentId]
+          );
+          const target = targets[0];
+          if (target && target.comment_user_id && target.comment_user_id !== userId) {
+            const [likers] = await pool.execute(
+              'SELECT nickname, username FROM users WHERE id = ?',
+              [userId]
+            );
+            const liker = likers[0]?.nickname || likers[0]?.username || '有人';
+            await notificationModel.addNotification({
+              title: '评论获赞',
+              content: `${liker} 赞了你在《${target.article_title}》下的评论`,
+              type: 2,
+              userId: target.comment_user_id
+            });
+          }
+        } catch (error) {
+          logger.error(`评论点赞通知发送失败: ${error.message}`);
+        }
+      }
+
       // 获取更新后的评论信息
       const [comments] = await pool.execute(
         'SELECT id, like_count FROM comments WHERE id = ?',
         [commentId]
       );
-      
+
       return {
         ...comments[0],
         is_liked: liked
@@ -216,48 +303,56 @@ class CommentModel {
   }
 
   /**
-   * 删除评论
+   * 删除评论（作者或管理员；删除主评论时级联软删除其可见子评论）
    * @param {number} commentId - 评论ID
    * @param {number} userId - 用户ID (用于权限验证)
+   * @param {boolean} isAdmin - 是否为管理员
    * @returns {Promise<boolean>} - 是否删除成功
    */
-  async deleteComment(commentId, userId) {
+  async deleteComment(commentId, userId, isAdmin = false) {
     const connection = await pool.getConnection();
-    
+
     try {
       await connection.beginTransaction();
-      
+
       // 获取评论信息以及验证权限
       const [comments] = await connection.execute(
         'SELECT article_id, user_id FROM comments WHERE id = ?',
         [commentId]
       );
-      
+
       if (comments.length === 0) {
         throw new Error('评论不存在');
       }
-      
+
       const comment = comments[0];
-      
-      // 检查权限：只有评论作者可以删除
-      if (comment.user_id !== userId) {
+
+      // 检查权限：评论作者或管理员可以删除
+      if (comment.user_id !== userId && !isAdmin) {
         throw new Error('无权删除此评论');
       }
-      
-      // 软删除评论 (更新状态)
-      await connection.execute(
-        'UPDATE comments SET status = 0 WHERE id = ?',
+
+      // 统计当前可见的子评论数，用于级联删除与计数同步
+      const [replyCountRows] = await connection.execute(
+        'SELECT COUNT(*) AS reply_count FROM comments WHERE parent_id = ? AND status = 1',
         [commentId]
       );
-      
-      // 更新文章评论数
+      const replyCount = replyCountRows[0].reply_count;
+
+      // 软删除评论及其可见子评论
       await connection.execute(
-        'UPDATE articles SET comment_count = GREATEST(comment_count - 1, 0) WHERE id = ?',
-        [comment.article_id]
+        'UPDATE comments SET status = 0 WHERE id = ? OR (parent_id = ? AND status = 1)',
+        [commentId, commentId]
       );
-      
+
+      // 更新文章评论数（主评论 + 级联子评论）
+      await connection.execute(
+        'UPDATE articles SET comment_count = GREATEST(comment_count - ?, 0) WHERE id = ?',
+        [1 + replyCount, comment.article_id]
+      );
+
       await connection.commit();
-      
+
       return true;
     } catch (error) {
       await connection.rollback();
