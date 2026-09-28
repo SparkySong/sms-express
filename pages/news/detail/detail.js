@@ -1,6 +1,7 @@
 // pages/news/detail/detail.js
 const historyService = require('../../../utils/historyService');
 const { get, post, del } = require('../../../utils/request');
+const { BASE_URL, fixImageUrl } = require('../../../utils/config');
 
 Page({
 
@@ -34,7 +35,7 @@ Page({
     commentContent: '',
     replyTo: '',
     replyCommentId: null,
-    baseUrl: 'http://127.0.0.1:3000/api/v1',
+    baseUrl: BASE_URL,
     canEdit: false, // 是否有编辑/删除权限
     isDeleted: false // 文章是否已被删除，避免卸载时保存已删文章的历史记录
   },
@@ -256,7 +257,7 @@ Page({
             category: articleData.category_name || '',
             categoryId: articleData.category_id || 0,
             userId: articleData.user_id || null,
-            coverImage: articleData.cover_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
+            coverImage: fixImageUrl(articleData.cover_url) || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
             content: articleData.content || '',
             sourceLink: '',
             likes: articleData.like_count || 0,
@@ -323,7 +324,7 @@ Page({
               title: item.title,
               source: item.source || '简讯速递',
               publishTime: that.formatDate(item.publish_time),
-              image: item.cover_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
+              image: fixImageUrl(item.cover_url) || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
             };
           });
           
@@ -782,7 +783,17 @@ Page({
         
         if (res.success) {
           const commentData = res.data || [];
-          
+
+          // 修复旧头像地址（数据库里写死的 127.0.0.1），评论和回复统一处理
+          commentData.forEach(comment => {
+            comment.avatar_url = fixImageUrl(comment.avatar_url);
+            if (Array.isArray(comment.replies)) {
+              comment.replies.forEach(reply => {
+                reply.avatar_url = fixImageUrl(reply.avatar_url);
+              });
+            }
+          });
+
           // 更新本地评论数据和文章评论数
           that.setData({
             comments: commentData,
@@ -1104,7 +1115,7 @@ Page({
               title: item.title,
               source: item.source || '简讯速递',
               publishTime: that.formatDate(item.publish_time),
-              image: item.cover_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
+              image: fixImageUrl(item.cover_url) || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
             };
           });
           

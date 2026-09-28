@@ -1,4 +1,5 @@
 const auth = require('../../utils/auth.js');
+const { BASE_URL, fixImageUrl } = require('../../utils/config');
 
 Page({
   data: {
@@ -8,7 +9,7 @@ Page({
     loading: false,
     errorMessage: '',
     statusBarHeight: 20, // 默认状态栏高度
-    baseUrl: 'http://127.0.0.1:3000/api/v1' // 后端API基础URL
+    baseUrl: BASE_URL // 后端API基础URL（config.js 统一管理）
   },
 
   onLoad() {
@@ -80,7 +81,7 @@ Page({
             id: userData.user.id,
             username: userData.user.username,
             nickName: userData.user.nickname,
-            avatarUrl: userData.user.avatar_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
+            avatarUrl: fixImageUrl(userData.user.avatar_url) || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
             role: userData.user.role || 'user',
             isLogin: true,
             loginType: 'account'
@@ -178,7 +179,7 @@ Page({
             id: userData.user.id,
             username: userData.user.username,
             nickName: userData.user.nickname,
-            avatarUrl: userData.user.avatar_url || userInfo.avatarUrl,
+            avatarUrl: fixImageUrl(userData.user.avatar_url) || userInfo.avatarUrl,
             role: userData.user.role || 'user',
             isLogin: true,
             loginType: 'wechat'

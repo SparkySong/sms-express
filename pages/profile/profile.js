@@ -1,5 +1,6 @@
 // pages/profile/profile.js
 const userService = require('../../utils/userService');
+const { fixImageUrl } = require('../../utils/config');
 
 Page({
 
@@ -130,7 +131,7 @@ Page({
           this.setData({
             userInfo: {
               id: userData.id,
-              avatarUrl: userData.avatar_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
+              avatarUrl: fixImageUrl(userData.avatar_url) || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
               nickName: userData.nickname || userData.username,
               username: userData.username,
               isLogin: true

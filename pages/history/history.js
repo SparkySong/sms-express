@@ -1,6 +1,7 @@
 import Dialog from '@vant/weapp/dialog/dialog';
 const historyService = require('../../utils/historyService');
 const util = require('../../utils/util');
+const { fixImageUrl } = require('../../utils/config');
 
 Page({
   /**
@@ -112,7 +113,7 @@ Page({
               timestamp: timestamp,
               readTime: this.formatReadTime(timestamp),
               category: item.article.category?.name,
-              imageUrl: item.article.cover_url
+              imageUrl: fixImageUrl(item.article.cover_url)
             };
           });
           
@@ -209,7 +210,7 @@ Page({
               timestamp: timestamp,
               readTime: this.formatReadTime(timestamp),
               category: item.article.category?.name,
-              imageUrl: item.article.cover_url
+              imageUrl: fixImageUrl(item.article.cover_url)
             };
           });
           

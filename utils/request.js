@@ -2,9 +2,9 @@
  * 封装的HTTP请求工具函数
  */
 
-// 开发环境API基础路径 - 这里将通过API配置统一管理
-// 注意：这个常量保留做为默认值，但实际使用时会优先使用options.baseUrl
-const BASE_URL = 'http://127.0.0.1:3000/api/v1';
+// API基础路径：统一在 config.js 管理（模拟器用 127.0.0.1，真机自动用局域网 IP）
+// 注意：实际使用时会优先使用options.baseUrl
+const { BASE_URL } = require('./config');
 // 请求超时时间（毫秒）
 const TIMEOUT = 10000;
 

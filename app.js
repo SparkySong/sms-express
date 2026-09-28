@@ -1,8 +1,7 @@
 // app.js
 const auth = require('./utils/auth');
-
-// 后端API基础URL
-const BASE_URL = 'http://127.0.0.1:3000/api/v1'; 
+// 后端API基础URL：统一在 utils/config.js 管理（模拟器/真机自动切换）
+const { BASE_URL } = require('./utils/config');
 
 App({
   onLaunch() {

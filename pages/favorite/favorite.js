@@ -2,6 +2,7 @@
 const favoriteService = require('../../utils/favoriteService');
 // 引入工具函数
 const util = require('../../utils/util');
+const { fixImageUrl } = require('../../utils/config');
 // 设置默认封面图片
 const DEFAULT_COVER = 'https://img.yzcdn.cn/vant/cat.jpeg';
 
@@ -94,7 +95,7 @@ Page({
               source: article.source || '未知来源',
               time: util.formatTime(new Date(article.publish_time)) || '未知时间',
               category: article.category?.name || '未分类',
-              imageUrl: article.cover_url || DEFAULT_COVER
+              imageUrl: fixImageUrl(article.cover_url) || DEFAULT_COVER
             };
           });
           

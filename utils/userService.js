@@ -2,6 +2,7 @@
  * 用户相关API服务
  */
 const request = require('./request');
+const { BASE_URL } = require('./config');
 
 /**
  * 获取当前用户信息
@@ -55,7 +56,7 @@ const uploadAvatar = (filePath, progressCallback = null) => {
     
     // 上传文件
     const uploadTask = wx.uploadFile({
-      url: 'http://127.0.0.1:3000/api/v1/users/avatar/upload',
+      url: `${BASE_URL}/users/avatar/upload`,
       filePath: filePath,
       name: 'avatar',
       header: {
