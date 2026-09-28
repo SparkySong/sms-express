@@ -1,6 +1,7 @@
 // pages/publish/publish.js
 // 引入API
 const api = require('../../utils/api');
+const { fixImageUrl } = require('../../utils/config');
 
 Page({
 
@@ -159,7 +160,7 @@ Page({
                         content: article.content || '',
                         abstract: article.abstract || '',
                         source: article.source || '',
-                        coverUrl: article.cover_url || '',
+                        coverUrl: fixImageUrl(article.cover_url) || '',
                         coverFile: null,
                         categoryId: article.category_id || 0
                     });

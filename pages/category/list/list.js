@@ -2,6 +2,7 @@
 
 // 引入分类服务
 const categoryService = require('../../../utils/categoryService');
+const { fixImageUrl } = require('../../../utils/config');
 
 // 设置默认封面图片
 const DEFAULT_COVER = 'https://img.yzcdn.cn/vant/cat.jpeg';
@@ -153,9 +154,9 @@ Page({
 
           // 处理文章数据，确保图片路径正确
           const processedArticles = newArticles.map(article => {
-            // 修正图片URL字段名
+            // 修正图片URL字段名（同时修复数据库里写死的 127.0.0.1 地址）
             if (article.cover_url && !article.coverUrl) {
-              article.coverUrl = article.cover_url;
+              article.coverUrl = fixImageUrl(article.cover_url);
             }
 
             // 处理发布时间

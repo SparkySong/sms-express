@@ -1,4 +1,5 @@
 const userService = require('../../utils/userService');
+const { fixImageUrl } = require('../../utils/config');
 
 Page({
   /**
@@ -51,7 +52,7 @@ Page({
           const userInfo = {
             nickname: userData.nickname || '',
             username: userData.username || '',
-            avatarUrl: userData.avatar_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
+            avatarUrl: fixImageUrl(userData.avatar_url) || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png',
             gender: userData.gender || 0,
             introduction: userData.introduction || ''
           };

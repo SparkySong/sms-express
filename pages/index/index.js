@@ -1,5 +1,6 @@
 // 引入API
 const api = require('../../utils/api');
+const { fixImageUrl } = require('../../utils/config');
 
 Page({
 
@@ -96,7 +97,7 @@ Page({
                         id: item.id,
                         title: item.title,
                         desc: item.abstract || '',
-                        imageUrl: item.cover_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
+                        imageUrl: fixImageUrl(item.cover_url) || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
                     };
                 });
 
@@ -188,7 +189,7 @@ Page({
                         time: that.formatTime(item.publish_time),
                         reads: that.formatNumber(item.view_count),
                         likes: that.formatNumber(item.like_count),
-                        imageUrl: item.cover_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
+                        imageUrl: fixImageUrl(item.cover_url) || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
                     };
                 });
 

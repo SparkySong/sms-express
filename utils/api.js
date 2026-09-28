@@ -5,14 +5,9 @@
 // 引入请求模块
 const request = require('./request');
 
-// 基础URL配置 - 可以在一处修改所有接口地址
-const BASE_URL = {
-  dev: 'http://127.0.0.1:3000/api/v1' // 开发环境
-};
-
-// 当前环境配置 - 修改此处可以切换环境
-const ENV = 'dev';
-const API_BASE_URL = BASE_URL[ENV];
+// 基础URL：统一在 config.js 管理（模拟器/真机自动切换）
+const { BASE_URL } = require('./config');
+const API_BASE_URL = BASE_URL;
 
 /**
  * API命名空间：按功能模块划分所有接口

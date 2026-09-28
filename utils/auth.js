@@ -2,8 +2,9 @@
  * 登录相关工具函数
  */
 
-// 获取App实例来获取baseUrl
-let baseUrl = 'http://127.0.0.1:3000/api/v1'; // 默认值
+// 获取App实例来获取baseUrl，config.js 的地址作为默认值
+const { BASE_URL } = require('./config');
+let baseUrl = BASE_URL; // 默认值
 
 // 动态获取baseUrl的方法
 const getBaseUrl = () => {

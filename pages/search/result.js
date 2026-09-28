@@ -1,5 +1,6 @@
 // pages/search/result.js
 const { get } = require('../../utils/request');
+const { fixImageUrl } = require('../../utils/config');
 
 Page({
   /**
@@ -140,7 +141,7 @@ Page({
         publishTime: this.formatDate(article.publish_time),
         views: article.view_count,
         category: article.category_name,
-        coverUrl: article.cover_url || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
+        coverUrl: fixImageUrl(article.cover_url) || 'https://toursmi.oss-cn-chengdu.aliyuncs.com/test.png'
       };
     });
   },
