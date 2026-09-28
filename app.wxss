@@ -1,0 +1,49 @@
+/* app.wxss 全局设计基线：与 Vant Weapp 默认色板对齐 */
+page {
+  /* 品牌色 */
+  --color-primary: #1989fa;
+  --color-primary-light: #e8f3ff;
+  --color-danger: #ee0a24;
+  --color-danger-light: #ffece8;
+  --color-like: #ff6b6b;
+
+  /* 文字 */
+  --color-text-1: #323233;
+  --color-text-2: #646566;
+  --color-text-3: #969799;
+  --color-text-4: #c8c9cc;
+
+  /* 背景 */
+  --color-bg-1: #f7f8fa;
+  --color-bg-2: #f2f3f5;
+  --color-bg-3: #e5e7eb;
+  --color-bg-card: #ffffff;
+  --color-border: #ebedf0;
+
+  /* 品牌渐变（我的页头部） */
+  --gradient-brand: linear-gradient(120deg, #1989fa, #06b6d4);
+
+  /* 圆角 */
+  --radius-sm: 8rpx;
+  --radius-md: 16rpx;
+  --radius-lg: 24rpx;
+
+  /* 字号 */
+  --font-caption: 24rpx;
+  --font-sm: 26rpx;
+  --font-body: 28rpx;
+  --font-md: 30rpx;
+  --font-lg: 32rpx;
+  --font-title: 36rpx;
+  --font-title-xl: 40rpx;
+
+  /* 阴影 */
+  --shadow-card: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  --shadow-card-strong: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+
+  background-color: var(--color-bg-1);
+  color: var(--color-text-1);
+  font-size: var(--font-body);
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+}

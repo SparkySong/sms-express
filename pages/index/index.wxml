@@ -12,7 +12,7 @@
         <swiper class="headline-swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{500}}" circular="{{true}}">
             <swiper-item wx:for="{{headlineNews}}" wx:key="id" bindtap="viewNews" data-id="{{item.id}}">
                 <view class="headline-card">
-                    <van-image width="100%" height="200" fit="cover" src="{{item.imageUrl}}" radius="8" lazy-load></van-image>
+                    <van-image width="100%" height="400rpx" fit="cover" src="{{item.imageUrl}}" radius="16rpx" lazy-load></van-image>
                     <view class="headline-overlay">
                         <view class="headline-title">{{item.title}}</view>
                         <view class="headline-desc">{{item.desc}}</view>
@@ -23,7 +23,7 @@
             <swiper-item wx:if="{{ headlineNews.length === 0 }}">
                 <view class="headline-card">
                     <view class="empty-data">
-                        <van-icon name="info-o" size="32px" />
+                        <van-icon name="info-o" size="64rpx" />
                         <text>暂无头条数据</text>
                     </view>
                 </view>
@@ -46,7 +46,7 @@
                         <text class="news-reads">{{item.reads}}阅读</text>
                     </view>
                 </view>
-                <van-image custom-class="news-image" width="120" height="80" fit="cover" src="{{item.imageUrl}}" radius="4" lazy-load bind:click="viewNews" data-id="{{item.id}}"></van-image>
+                <van-image custom-class="news-image" width="240rpx" height="160rpx" fit="cover" src="{{item.imageUrl}}" radius="8rpx" lazy-load bind:click="viewNews" data-id="{{item.id}}"></van-image>
                 <view class="news-actions">
                     <view class="action-item" catchtap="likeNews" data-id="{{item.id}}">
                         <van-icon name="like-o" class="action-icon" />
@@ -60,7 +60,7 @@
             </view>
             <!-- 没有文章数据时显示提示 -->
             <view wx:if="{{ newsList.length === 0 }}" class="empty-data">
-                <van-icon name="info-o" size="32px" />
+                <van-icon name="info-o" size="64rpx" />
                 <text>暂无相关文章</text>
             </view>
         </van-cell-group>
