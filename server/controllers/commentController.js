@@ -1,7 +1,6 @@
 const commentModel = require('../models/commentModel');
 const { successResponse, errorResponse } = require('../utils/responseUtil');
 const logger = require('../utils/logger');
-const { validateToken } = require('../middleware/authMiddleware');
 
 /**
  * 评论控制器
@@ -20,22 +19,9 @@ class CommentController {
         return errorResponse(res, '无效的文章ID', 400);
       }
       
-      // 获取用户ID，未登录用户传递null
-      let userId = null;
-      try {
-        const authHeader = req.headers.authorization;
-        if (authHeader && authHeader.startsWith('Bearer ')) {
-          const token = authHeader.split(' ')[1];
-          const decoded = await validateToken(token);
-          if (decoded && decoded.id) {
-            userId = decoded.id;
-          }
-        }
-      } catch (error) {
-        // Token无效或已过期，继续以游客身份获取评论
-        logger.warn(`获取评论时Token验证失败: ${error.message}`);
-      }
-      
+      // 获取用户ID（optionalAuth中间件已解析，未登录用户为null）
+      const userId = req.user ? req.user.id : null;
+
       const comments = await commentModel.getArticleComments(articleId, userId);
       
       return successResponse(res, comments);
@@ -106,7 +92,7 @@ class CommentController {
   }
 
   /**
-   * 删除评论
+   * 删除评论（作者本人或管理员）
    * @param {Object} req - 请求对象
    * @param {Object} res - 响应对象
    */
@@ -114,17 +100,24 @@ class CommentController {
     try {
       const commentId = parseInt(req.params.commentId);
       const userId = req.user.id;
-      
+      const isAdmin = req.user.role === 'admin';
+
       if (isNaN(commentId)) {
         return errorResponse(res, '无效的评论ID', 400);
       }
-      
-      await commentModel.deleteComment(commentId, userId);
-      
+
+      await commentModel.deleteComment(commentId, userId, isAdmin);
+
       return successResponse(res, { message: '评论删除成功' });
     } catch (error) {
       logger.error(`删除评论失败: ${error.message}`);
-      return errorResponse(res, error.message, 500);
+      if (error.message.includes('无权')) {
+        return errorResponse(res, '无权删除此评论', 403);
+      }
+      if (error.message.includes('不存在')) {
+        return errorResponse(res, '评论不存在', 404);
+      }
+      return errorResponse(res, '删除评论失败', 500);
     }
   }
 }

@@ -1,6 +1,8 @@
 const { pool } = require('../config/db');
 const config = require('../config/config');
 const db = require('../utils/db');
+const logger = require('../utils/logger');
+const notificationModel = require('./notificationModel');
 
 /**
  * 文章模型
@@ -435,6 +437,31 @@ class ArticleModel {
         );
         
         await connection.commit();
+
+        // 通知闭环：点赞成功时提醒文章作者（失败不影响点赞主流程）
+        try {
+          const [articles] = await pool.execute(
+            'SELECT user_id, title FROM articles WHERE id = ?',
+            [articleId]
+          );
+          const article = articles[0];
+          if (article && article.user_id && article.user_id !== userId) {
+            const [likers] = await pool.execute(
+              'SELECT nickname, username FROM users WHERE id = ?',
+              [userId]
+            );
+            const liker = likers[0]?.nickname || likers[0]?.username || '有人';
+            await notificationModel.addNotification({
+              title: '文章获赞',
+              content: `${liker} 赞了你的文章《${article.title}》`,
+              type: 3,
+              userId: article.user_id
+            });
+          }
+        } catch (error) {
+          logger.error(`文章点赞通知发送失败: ${error.message}`);
+        }
+
         return true; // 返回true表示点赞成功
       }
     } catch (error) {
