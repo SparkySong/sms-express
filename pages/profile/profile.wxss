@@ -1,5 +1,4 @@
 /* pages/profile/profile.wxss */
-/* 整个页面容器 */
 .container {
   display: flex;
   flex-direction: column;
@@ -8,9 +7,8 @@
 
 /* 顶部用户信息区域 */
 .profile-header {
-  /* position: relative; */
   width: 100%;
-  margin-bottom: 70px;
+  margin-bottom: 140rpx;
 }
 
 .header-bg {
@@ -19,7 +17,7 @@
   left: 0;
   right: 0;
   height: 200rpx;
-  background: linear-gradient(120deg, #3b82f6, #06b6d4);
+  background: var(--gradient-brand);
   z-index: 1;
 }
 
@@ -32,9 +30,9 @@
   left: 30rpx;
   right: 30rpx;
   padding: 30rpx;
-  background-color: #ffffff;
-  border-radius: 16rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card-strong);
   z-index: 2;
   transition: all 0.3s ease;
 }
@@ -48,7 +46,7 @@
   width: 120rpx;
   height: 120rpx;
   border-radius: 60rpx;
-  border: 4rpx solid #ffffff;
+  border: 4rpx solid var(--color-bg-card);
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
 }
 
@@ -59,7 +57,7 @@
   width: 36rpx;
   height: 36rpx;
   border-radius: 18rpx;
-  background-color: #3b82f6;
+  background-color: var(--color-primary);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,32 +69,32 @@
 }
 
 .nickname {
-  font-size: 36rpx;
+  font-size: var(--font-title);
   font-weight: bold;
-  color: #333333;
+  color: var(--color-text-1);
   margin-bottom: 8rpx;
 }
 
 .login-tip {
-  font-size: 24rpx;
-  color: #666666;
+  font-size: var(--font-caption);
+  color: var(--color-text-2);
 }
 
 .edit-profile {
   margin-top: 16rpx;
-  font-size: 24rpx;
-  color: #666666;
+  font-size: var(--font-caption);
+  color: var(--color-text-2);
   display: flex;
   align-items: center;
   width: fit-content;
   padding: 6rpx 20rpx;
-  background-color: #f2f3f5;
+  background-color: var(--color-bg-2);
   border-radius: 30rpx;
   transition: all 0.3s ease;
 }
 
 .edit-profile:active {
-  background-color: #e5e7eb;
+  background-color: var(--color-bg-3);
 }
 
 /* 用户数据统计 */
@@ -105,9 +103,9 @@
   justify-content: space-between;
   margin: 180rpx 30rpx 30rpx;
   padding: 30rpx 0;
-  background-color: #ffffff;
-  border-radius: 16rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
 }
 
 .stat-item {
@@ -120,49 +118,49 @@
 }
 
 .stat-item:active {
-  background-color: #f2f3f5;
+  background-color: var(--color-bg-2);
 }
 
 .stat-count {
-  font-size: 36rpx;
+  font-size: var(--font-title);
   font-weight: bold;
-  color: #333333;
+  color: var(--color-text-1);
   margin-bottom: 10rpx;
 }
 
 .stat-label {
-  font-size: 24rpx;
-  color: #999999;
+  font-size: var(--font-caption);
+  color: var(--color-text-3);
 }
 
 .divider {
   width: 1rpx;
-  background-color: #eeeeee;
+  background-color: var(--color-border);
   height: 50rpx;
   margin-top: 20rpx;
 }
 
 /* 功能菜单 */
 .section-title {
-  font-size: 30rpx;
+  font-size: var(--font-md);
   font-weight: bold;
-  color: #333333;
+  color: var(--color-text-1);
   margin: 10rpx 30rpx 20rpx;
 }
 
 .menu-list {
   margin: 0 30rpx;
-  background-color: #ffffff;
-  border-radius: 16rpx;
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
 }
 
 .menu-item {
   display: flex;
   align-items: center;
   padding: 28rpx 30rpx;
-  border-bottom: 1rpx solid #f2f3f5;
+  border-bottom: 1rpx solid var(--color-border);
   transition: all 0.3s ease;
 }
 
@@ -171,7 +169,7 @@
 }
 
 .menu-item-hover {
-  background-color: #f5f7fa;
+  background-color: var(--color-bg-2);
 }
 
 .menu-icon-wrapper {
@@ -185,13 +183,13 @@
 
 .menu-text {
   flex: 1;
-  font-size: 28rpx;
-  color: #333333;
+  font-size: var(--font-body);
+  color: var(--color-text-1);
 }
 
 .menu-arrow {
-  color: #c8c9cc;
-  font-size: 28rpx;
+  color: var(--color-text-4);
+  font-size: var(--font-body);
 }
 
 /* 退出登录按钮 */
@@ -201,31 +199,23 @@
   justify-content: center;
   margin: 20rpx 30rpx 30rpx;
   padding: 24rpx;
-  background-color: #ffffff;
-  color: #ff4d4f;
-  font-size: 30rpx;
+  background-color: var(--color-bg-card);
+  color: var(--color-danger);
+  font-size: var(--font-md);
   text-align: center;
-  border-radius: 16rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
   transition: all 0.3s ease;
 }
 
 .logout-btn:active {
-  background-color: #fff2f0;
+  background-color: var(--color-danger-light);
 }
 
 /* 版本信息 */
 .version-info {
   text-align: center;
-  font-size: 24rpx;
-  color: #999999;
+  font-size: var(--font-caption);
+  color: var(--color-text-3);
   margin-top: 10rpx;
-}
-
-/* 加载状态 */
-.loading-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
 }

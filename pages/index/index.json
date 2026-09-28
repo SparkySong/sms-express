@@ -10,7 +10,7 @@
   },
   "navigationBarTitleText": "简讯速递",
   "navigationBarBackgroundColor": "#ffffff",
-  "backgroundColor": "#f8f8f8",
+  "backgroundColor": "#f7f8fa",
   "backgroundTextStyle": "dark",
   "enablePullDownRefresh": true
 }
